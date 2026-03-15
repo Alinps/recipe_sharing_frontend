@@ -1,0 +1,118 @@
+
+.hero {
+
+  position: relative;
+
+  min-height: 60vh;
+
+  display: flex;
+  align-items: center;
+
+  background-image: url("https://images.unsplash.com/photo-1543353071-873f17a7a088");
+
+  background-size: cover;
+  background-position: center;
+
+}
+
+/* overlay */
+
+.hero::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(0,0,0,0.65);
+
+}
+
+/* content */
+
+.heroContent {
+
+  position: relative;
+
+  max-width: 650px;
+
+}
+
+/* title */
+
+.title {
+
+  font-size: 3rem;
+
+  font-weight: 700;
+
+  margin-bottom: var(--space-3);
+
+}
+
+.title span {
+
+  color: var(--color-primary);
+
+}
+
+/* subtitle */
+
+.subtitle {
+
+  font-size: 1.1rem;
+
+  color: var(--color-text-muted);
+
+  margin-bottom: var(--space-4);
+
+}
+
+/* buttons */
+
+.actions {
+
+  display: flex;
+
+  gap: var(--space-3);
+
+}
+
+/* secondary button */
+
+.secondaryBtn {
+
+  padding: 10px 18px;
+
+  border-radius: var(--radius-sm);
+
+  border: 1px solid var(--color-border);
+
+  color: var(--color-text-main);
+
+  transition: all 0.25s ease;
+
+}
+
+.secondaryBtn:hover {
+
+  border-color: var(--color-primary);
+
+  color: var(--color-primary);
+
+}
+
+/* responsive */
+
+@media (max-width:768px) {
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .hero {
+    min-height: 50vh;
+  }
+
+}

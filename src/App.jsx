@@ -1,31 +1,25 @@
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Recipes from "./pages/Recipes"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Profile from "./pages/Profile";
-import CreateRecipe from "./pages/CreateRecipe";
-import RecipeDetails from "./pages/RecipeDetails";
-
-import { Routes, Route } from "react-router-dom";
-
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./pages/Home/Home";
+import Recipes from "./pages/Recipes/Recipes";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import { Route,Routes } from "react-router-dom";
 function App() {
   return (
-    <div>
-
+    <>
       <Navbar />
+      <main className="page">
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/recipes" element={<Recipes />} />
-        <Route path="/recipes/:id" element={<RecipeDetails />} />
-        <Route path="/add-recipe" element={<CreateRecipe />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/recipes" element={<Recipes />} />
+          <Route path="/recipes" element={<Recipes />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
 
-    </div>
+      </main>
+    </>
   );
 }
 

@@ -1,0 +1,70 @@
+.toast {
+
+  position: fixed;
+
+  top: 90px;
+  right: 20px;
+
+  min-width: 260px;
+
+  padding: 14px 18px;
+
+  border-radius: var(--radius-md);
+
+  backdrop-filter: blur(10px);
+
+  background: rgba(30,30,30,0.9);
+
+  border: 1px solid var(--color-border);
+
+  box-shadow: var(--shadow-soft);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  animation: slideIn 0.3s ease;
+
+}
+
+/* success */
+
+.success {
+
+  border-left: 4px solid #22c55e;
+
+}
+
+/* error */
+
+.error {
+
+  border-left: 4px solid #ef4444;
+
+}
+
+.close {
+
+  font-size: 1.2rem;
+
+  margin-left: 10px;
+
+  color: white;
+
+}
+
+/* animation */
+
+@keyframes slideIn {
+
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+}

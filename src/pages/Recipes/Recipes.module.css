@@ -1,0 +1,44 @@
+.title {
+
+  font-size: 2rem;
+
+  font-weight: 600;
+
+  margin-bottom: var(--space-4);
+
+  color: var(--color-primary);
+
+}
+
+/* grid */
+
+.grid {
+
+  display: grid;
+
+  grid-template-columns:
+  repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: var(--space-4);
+
+}
+
+/* loading */
+
+.message {
+
+  margin-bottom: var(--space-3);
+
+  color: var(--color-text-muted);
+
+}
+
+/* error */
+
+.error {
+
+  margin-bottom: var(--space-3);
+
+  color: #ff6b6b;
+
+}
