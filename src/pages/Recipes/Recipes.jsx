@@ -39,9 +39,7 @@ function Recipes() {
   return (
 
     <div className="container">
-
       <section className="section">
-
         <h1 className={styles.title}>All Recipes</h1>
 
         {loading && (
@@ -51,9 +49,7 @@ function Recipes() {
         {error && (
           <p className={styles.error}>{error}</p>
         )}
-
         <div className={styles.grid}>
-
           {recipes.map((recipe) => (
 
             <RecipeCard
