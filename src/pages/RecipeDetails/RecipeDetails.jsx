@@ -46,60 +46,41 @@ function RecipeDetails() {
   return (
 
     <div className="container">
-
       <div className={styles.wrapper}>
-
         {/* Image */}
-
         <div className={styles.imageSection}>
-
           <img
             src={`${BASE_URL}${recipe.image}`}
             alt={recipe.title}
           />
+          </div>
 
-        </div>
 
         {/* Content */}
-
         <div className={styles.content}>
-
           <h1 className={styles.title}>
             {recipe.title}
           </h1>
-
           <p className={styles.author}>
             By {recipe.user.name}
           </p>
-
           <p className={styles.difficulty}>
             Difficulty: {recipe.difficulty_level}
           </p>
-
           {/* Ingredients */}
-
           <div className={styles.section}>
-
             <h2>Ingredients</h2>
-
             <p>{recipe.ingredients}</p>
-
           </div>
 
           {/* Steps */}
 
           <div className={styles.section}>
-
             <h2>Instructions</h2>
-
             <p>{recipe.steps}</p>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
 
   );
