@@ -100,12 +100,18 @@ const handleDelete = async () => {
               </button>
               <span className={styles.tooltip}>{isSaved ? "Saved" : "Save"}</span>
             </div>
+            <div className={styles.saveWrapper}>
             {user?.id === recipe.user.id &&(
                 <button className={styles.deleteIcon} onClick={handleDelete}><FaTrash /></button>
               )}
+              <span className={styles.tooltip}>Delete</span>
+              </div>
+              <div className={styles.saveWrapper}>
                {user?.id === recipe.user.id &&(
                <button className={styles.editIconBtn} onClick={() => navigate(`/edit/recipe/${recipe.id}`)}><FiEdit /></button>
               )}
+              <span className={styles.tooltip}>Edit</span>
+              </div>
           </h1>
           
      

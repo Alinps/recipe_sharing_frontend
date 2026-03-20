@@ -7,34 +7,51 @@ import API from "../../services/api";
 function Recipes() {
 
   const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const LIMIT = 25;
+
 
   useEffect(() => {
-
     const fetchRecipes = async () => {
-
+    if (loading || !hasMore) return;
+    setLoading(true);
       try {
+        const res = await API.get(`list/?limit=${LIMIT}&offset=${offset}`);
+        setRecipes((prev) => [...prev, ...res.data.results]);
 
-        const response = await API.get("list/");
-
-        setRecipes(response.data.recipes);
-
-      } catch (err) {
-
-        setError("Failed to load recipes");
-
-      } finally {
-
-        setLoading(false);
-
+      if (!res.data.next) {
+        setHasMore(false);
       }
+      setOffset((prev) => prev + LIMIT);
+      } catch (err) {
+        setError("Failed to load recipes");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRecipes();
+  }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.documentElement.scrollHeight;
+
+      // When user is near bottom
+      if (scrollTop + windowHeight >= fullHeight - 100) {
+        fetchRecipes();
+      }
     };
 
-    fetchRecipes();
+    window.addEventListener("scroll", handleScroll);
 
-  }, []);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [offset, hasMore, loading]);
+
 
   return (
 
@@ -61,9 +78,9 @@ function Recipes() {
             />
 
           ))}
-
+           {loading && <p>Loading...</p>}
+           {!hasMore && <p>No more recipes</p>}
         </div>
-
       </section>
 
     </div>
