@@ -3,7 +3,10 @@ import { useParams } from "react-router-dom";
 import API from "../../services/api";
 import styles from "./RecipeDetails.module.css";
 import { useToast } from "../../context/ToastContext";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 
 function RecipeDetails() {
 
@@ -13,6 +16,8 @@ function RecipeDetails() {
   const [error, setError] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const { showToast } = useToast();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
   const BASE_URL = "http://127.0.0.1:8000";
 
   useEffect(() => {
@@ -51,6 +56,24 @@ function RecipeDetails() {
 };
 
 
+
+const handleDelete = async () => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this recipe?");
+
+  if (!confirmDelete) return;
+
+  try {
+    await API.delete(`delete/${recipe.id}`);
+
+    showToast("Recipe deleted successfully");
+    navigate("/"); // or profile page
+
+  } catch (err) {
+    showToast("Failed to delete recipe");
+  }
+};
+
+
   if (loading) return <p>Loading recipe...</p>;
   if (error) return <p>{error}</p>;
 
@@ -73,17 +96,16 @@ function RecipeDetails() {
           <h1 className={styles.title}>
             {recipe.title}
             <div className={styles.saveWrapper}>
-  <button
-    className={styles.saveBtn}
-    onClick={handleWishlistToggle}
-  >
-    {isSaved ? <FaBookmark /> : <FaRegBookmark />}
-  </button>
-
-  <span className={styles.tooltip}>
-    {isSaved ? "Saved" : "Save"}
-  </span>
-</div>
+              <button
+                className={styles.saveBtn}
+                onClick={handleWishlistToggle}
+              >{isSaved ? <FaBookmark /> : <FaRegBookmark />}
+              </button>
+              <span className={styles.tooltip}>{isSaved ? "Saved" : "Save"}</span>
+            </div>
+            {user?.id === recipe.user.id &&(
+                <button className={styles.deleteIcon} onClick={handleDelete}><FaTrash /></button>
+              )}
           </h1>
           
      
