@@ -8,6 +8,7 @@ GLOBAL RESET
   box-sizing: border-box;
 }
 
+
 /* Remove default margins */
 
 body,
@@ -64,9 +65,6 @@ button {
 /* HTML / Body */
 
 html,
-body {
-  height: 100%;
-}
 
 /* Prevent horizontal scroll bugs */
 
