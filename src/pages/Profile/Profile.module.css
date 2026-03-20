@@ -1,0 +1,61 @@
+.profileCard {
+
+  margin-top: var(--space-5);
+
+  padding: var(--space-4);
+
+  background: var(--color-surface);
+
+  border-radius: var(--radius-md);
+
+  border: 1px solid var(--color-border);
+
+  box-shadow: var(--shadow-soft);
+
+}
+
+.name {
+
+  font-size: 2rem;
+
+  color: var(--color-primary);
+
+}
+
+.email {
+
+  color: var(--color-text-muted);
+
+}
+
+.recipeSection {
+
+  margin-top: var(--space-5);
+
+}
+
+.sectionTitle {
+
+  margin-bottom: var(--space-3);
+
+}
+
+/* grid */
+
+.grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: var(--space-4);
+
+}
+
+.message {
+
+  text-align: center;
+
+  margin-top: var(--space-5);
+
+}

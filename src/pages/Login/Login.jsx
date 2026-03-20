@@ -23,6 +23,7 @@ function Login() {
       const token = response.data.token;
       console.log(token)
       localStorage.setItem("token", token);
+      // localStorage.setItem("user", JSON.stringify(res.data.user));
       showToast("Login successful!", "success");
       navigate("/");
     }catch (error) {

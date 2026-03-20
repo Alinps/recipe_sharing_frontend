@@ -5,6 +5,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import RecipeDetails from "./pages/RecipeDetails/RecipeDetails";
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
+import Profile from "./pages/Profile/Profile";
 import { Route,Routes } from "react-router-dom";
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/recipes/:id" element={<RecipeDetails />} />
           <Route path="/add-recipe" element={<CreateRecipe />} /> 
+          <Route path="/profile/:id" element={<Profile />} />
         </Routes>
 
       </main>

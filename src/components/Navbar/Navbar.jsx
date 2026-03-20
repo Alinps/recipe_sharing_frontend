@@ -5,7 +5,7 @@ import styles from "./Navbar.module.css";
 function Navbar() {
 
   const [menuOpen, setMenuOpen] = useState(false);
-
+  // const user = JSON.parse(localStorage.getItem("user"));
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -25,6 +25,7 @@ function Navbar() {
           <Link to="/">Home</Link>
           <Link to="/recipes">Recipes</Link>
           <Link to="/add-recipe">Add Recipe</Link>
+          {/* <Link to={`/profile/${user.id}`}>Profile</Link> */}
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
 
