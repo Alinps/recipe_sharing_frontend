@@ -71,13 +71,79 @@
 }
 
 .error {
-
   text-align: center;
   color: #ef4444;
   margin-top: var(--space-5);
 
 }
 
+
+/* Wrapper for positioning tooltip */
+.saveWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Button style */
+.saveBtn {
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ICON DEFAULT (outline look) */
+.saveBtn svg {
+  color: white;
+  font-size: 18px;
+  stroke: white;          /* helps outline feel */
+  stroke-width: 20;       /* makes outline thicker */
+}
+
+/* HOVER */
+.saveBtn:hover {
+  background: rgba(0, 0, 0, 0.6);
+  transform: scale(1.1);
+}
+
+/* CLICK ANIMATION */
+.saveBtn:active {
+  transform: scale(0.9);
+}
+
+/* TOOLTIP */
+.tooltip {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: black;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+
+  font-size: 12px;
+  white-space: nowrap;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Show tooltip on hover */
+.saveWrapper:hover .tooltip {
+  opacity: 1;
+}
 /* responsive */
 
 @media (max-width: 768px) {

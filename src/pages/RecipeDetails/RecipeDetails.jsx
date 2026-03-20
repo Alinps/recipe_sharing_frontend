@@ -2,45 +2,56 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../services/api";
 import styles from "./RecipeDetails.module.css";
+import { useToast } from "../../context/ToastContext";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 function RecipeDetails() {
 
   const { id } = useParams();
-
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const [isSaved, setIsSaved] = useState(false);
+  const { showToast } = useToast();
   const BASE_URL = "http://127.0.0.1:8000";
 
   useEffect(() => {
-
     const fetchRecipe = async () => {
-
       try {
-
         const response = await API.get(`recipedetails/${id}`);
-
+        console.log(response.data.data)
         setRecipe(response.data.data);
-
+        setIsSaved(response.data.data.is_saved);
       } catch (err) {
-
         setError("Failed to load recipe");
-
       } finally {
-
         setLoading(false);
-
       }
-
     };
-
     fetchRecipe();
-
   }, [id]);
 
-  if (loading) return <p>Loading recipe...</p>;
+  const handleWishlistToggle = async () => {
+  try {
+    const res = await API.post("wishlist/toggle/", {
+      recipe_id: recipe.id,
+    });
 
+    if (res.data.status === "added") {
+      setIsSaved(true);
+      showToast("Added to wishlist ❤️");
+    } else {
+      setIsSaved(false);
+      showToast("Removed from wishlist");
+    }
+
+  } catch (err) {
+    showToast("Something went wrong");
+  }
+};
+
+
+  if (loading) return <p>Loading recipe...</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -50,9 +61,10 @@ function RecipeDetails() {
         {/* Image */}
         <div className={styles.imageSection}>
           <img
-            src={`${BASE_URL}${recipe.image}`}
+            src={`${recipe.image}`}
             alt={recipe.title}
           />
+
           </div>
 
 
@@ -60,7 +72,21 @@ function RecipeDetails() {
         <div className={styles.content}>
           <h1 className={styles.title}>
             {recipe.title}
+            <div className={styles.saveWrapper}>
+  <button
+    className={styles.saveBtn}
+    onClick={handleWishlistToggle}
+  >
+    {isSaved ? <FaBookmark /> : <FaRegBookmark />}
+  </button>
+
+  <span className={styles.tooltip}>
+    {isSaved ? "Saved" : "Save"}
+  </span>
+</div>
           </h1>
+          
+     
           <p className={styles.author}>
             By {recipe.user.name}
           </p>
