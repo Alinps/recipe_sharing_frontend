@@ -23,10 +23,14 @@ function Login() {
         "password":password,
     }
       const response = await API.post("login_user/", data);
-      const token = response.data.token;
-      console.log(token)
-      dispatch(loginSuccess(response.data))
-      // localStorage.setItem("user", JSON.stringify(res.data.user));
+     
+      console.log(response)
+      console.log("toast:", showToast);
+      console.log(loginSuccess);
+      dispatch(loginSuccess(response.data));
+      
+
+      console.log("toast:", showToast);
       showToast("Login successful!", "success");
       navigate("/");
     }catch (error) {

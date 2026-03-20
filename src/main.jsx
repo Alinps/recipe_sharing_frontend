@@ -11,13 +11,13 @@ import {store} from "./store/store";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+ <React.StrictMode>
+  <Provider store={store}>
     <BrowserRouter>
-    <Provider store ={store}>
-       <ToastProvider>
+      <ToastProvider>
         <App />
       </ToastProvider>
-    </Provider>
     </BrowserRouter>
-  </React.StrictMode>
+  </Provider>
+</React.StrictMode>
 );
