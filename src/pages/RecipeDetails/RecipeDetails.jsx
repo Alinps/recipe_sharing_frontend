@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
+import { FiEdit } from "react-icons/fi";
 
 function RecipeDetails() {
 
@@ -59,15 +60,11 @@ function RecipeDetails() {
 
 const handleDelete = async () => {
   const confirmDelete = window.confirm("Are you sure you want to delete this recipe?");
-
   if (!confirmDelete) return;
-
   try {
     await API.delete(`delete/${recipe.id}`);
-
     showToast("Recipe deleted successfully");
     navigate("/"); // or profile page
-
   } catch (err) {
     showToast("Failed to delete recipe");
   }
@@ -105,6 +102,9 @@ const handleDelete = async () => {
             </div>
             {user?.id === recipe.user.id &&(
                 <button className={styles.deleteIcon} onClick={handleDelete}><FaTrash /></button>
+              )}
+               {user?.id === recipe.user.id &&(
+               <button className={styles.editIconBtn} onClick={() => navigate(`/edit/recipe/${recipe.id}`)}><FiEdit /></button>
               )}
           </h1>
           

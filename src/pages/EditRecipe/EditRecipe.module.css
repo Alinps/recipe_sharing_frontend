@@ -1,0 +1,146 @@
+/* 🔥 FULL PAGE WRAPPER */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🔥 CARD */
+.card {
+  width: 100%;
+  max-width: 600px;
+  padding: var(--space-5);
+
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+
+  margin-top: 20px;
+}
+
+/* 🔥 TITLE */
+.title {
+  text-align: center;
+  margin-bottom: var(--space-4);
+  color: var(--color-primary);
+}
+
+/* 🔥 FORM */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* 🔥 FIELD */
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: var(--color-text-muted);
+}
+
+/* 🔥 INPUTS */
+.field input,
+.field textarea,
+.field select {
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+
+  transition: all 0.2s ease;
+}
+
+.field textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* 🔥 FOCUS EFFECT */
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* 🔥 IMAGE PREVIEW */
+.imageWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+/* 🔥 FILE INPUT */
+.imageWrapper input {
+  color: var(--color-text-muted);
+}
+
+/* 🔥 SUBMIT BUTTON */
+.submitBtn {
+  margin-top: 10px;
+
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: none;
+
+  background: var(--color-primary);
+  color: white;
+
+  font-weight: 500;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  transition: all 0.2s ease;
+}
+
+.submitBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 🔥 SPINNER */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* 🔥 ANIMATION */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

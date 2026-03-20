@@ -6,6 +6,7 @@ import Register from "./pages/Register/Register";
 import RecipeDetails from "./pages/RecipeDetails/RecipeDetails";
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
 import Profile from "./pages/Profile/Profile";
+import EditRecipe from "./pages/EditRecipe/EditRecipe";
 import { Route,Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute"; 
 import PublicRoute from "./components/PublicRoute";
@@ -62,7 +63,17 @@ function App() {
                   <Profile />
                 </ProtectedRoute>
               } />
+
+          <Route 
+                path="/edit/recipe/:id" 
+                element={
+                <ProtectedRoute>
+                  <EditRecipe />
+                </ProtectedRoute>
+              } />
+
         </Routes>
+        
 
       </main>
     </>

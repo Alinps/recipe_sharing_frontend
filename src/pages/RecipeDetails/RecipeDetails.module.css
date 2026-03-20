@@ -123,12 +123,10 @@
   bottom: -28px;
   left: 50%;
   transform: translateX(-50%);
-
   background: black;
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
-
   font-size: 12px;
   white-space: nowrap;
 
@@ -146,7 +144,12 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #aaa;
+   color: white;
+  font-size: 18px;
+    width: 36px;
+  height: 36px;
+  stroke: white;          /* helps outline feel */
+  stroke-width: 20;
   font-size: 18px;
   transition: all 0.2s ease;
 }
@@ -154,6 +157,26 @@
 .deleteIcon:hover {
   transform: scale(1.1)
 }
+
+
+.editIconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+   color: white;
+  font-size: 18px;
+  stroke: white;  
+    width: 36px;
+  height: 36px;        /* helps outline feel */
+  stroke-width: 20;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.editIconBtn:hover {
+  transform: scale(1.1);
+}
+
 
 
 /* responsive */
