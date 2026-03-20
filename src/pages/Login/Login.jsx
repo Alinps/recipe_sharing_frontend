@@ -3,11 +3,14 @@ import styles from "./Login.module.css";
 import API from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../context/ToastContext";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../store/authSlice";
 function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { showToast } = useToast();
 
 
@@ -22,7 +25,7 @@ function Login() {
       const response = await API.post("login_user/", data);
       const token = response.data.token;
       console.log(token)
-      localStorage.setItem("token", token);
+      dispatch(loginSuccess(response.data))
       // localStorage.setItem("user", JSON.stringify(res.data.user));
       showToast("Login successful!", "success");
       navigate("/");

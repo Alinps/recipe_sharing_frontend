@@ -7,6 +7,8 @@ import RecipeDetails from "./pages/RecipeDetails/RecipeDetails";
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
 import Profile from "./pages/Profile/Profile";
 import { Route,Routes } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute"; 
+import PublicRoute from "./components/PublicRoute";
 function App() {
   return (
     <>
@@ -15,12 +17,51 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/recipes" element={<Recipes />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/recipes/:id" element={<RecipeDetails />} />
-          <Route path="/add-recipe" element={<CreateRecipe />} /> 
-          <Route path="/profile/:id" element={<Profile />} />
+          <Route 
+                path="/login" 
+                element={
+                        <PublicRoute>
+                          <Login />
+                        </PublicRoute>
+                      } />
+          <Route 
+                path="/register" 
+                element={
+                        <PublicRoute>
+                          <Register />
+                        </PublicRoute>} 
+                        />
+
+
+          <Route 
+                path="/recipes" 
+                element={
+                <ProtectedRoute>
+                  <Recipes />
+                </ProtectedRoute>
+              }/>
+
+          <Route 
+                path="/recipes/:id" 
+                element={
+                  <ProtectedRoute>
+                    <RecipeDetails />
+                  </ProtectedRoute>
+                  }/>
+          <Route 
+                path="/add-recipe" 
+                element={
+                <ProtectedRoute>
+                  <CreateRecipe />
+                </ProtectedRoute> 
+                }/> 
+          <Route 
+                path="/profile/:id" 
+                element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } />
         </Routes>
 
       </main>
