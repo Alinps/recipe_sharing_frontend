@@ -1,19 +1,30 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import { useToast } from "../../context/ToastContext";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../store/authSlice"; // adjust path if needed
+import { logout } from "../../store/authSlice"; 
+import API from "../../services/api"
 
 function Navbar() {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const { showToast } = useToast();
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
-  const handleLogout = () => {
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try{
+    const response = await API.post("logout/")
+    showToast(response.data.message, "success");
     dispatch(logout());
+    }catch(error){
+      console.log(error);
+      showToast("logout faild","error")
+    }
   };
   return (
     <header className={styles.navbarWrapper}>

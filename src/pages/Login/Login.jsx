@@ -18,19 +18,9 @@ function Login() {
     e.preventDefault();
 
     try {
-        let data = {
-        "email":email,
-        "password":password,
-    }
+      let data = {"email":email,"password":password,}
       const response = await API.post("login_user/", data);
-     
-      console.log(response)
-      console.log("toast:", showToast);
-      console.log(loginSuccess);
       dispatch(loginSuccess(response.data));
-      
-
-      console.log("toast:", showToast);
       showToast("Login successful!", "success");
       navigate("/");
     }catch (error) {
