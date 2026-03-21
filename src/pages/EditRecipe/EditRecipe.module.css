@@ -1,42 +1,40 @@
-/* 🔥 FULL PAGE WRAPPER */
+/* FULL PAGE WRAPPER */
 .wrapper {
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
-/* 🔥 CARD */
+/* CARD */
 .card {
   width: 100%;
   max-width: 600px;
   padding: var(--space-5);
-
   background: var(--color-surface);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-
   backdrop-filter: blur(10px);
   box-shadow: var(--shadow-soft);
-
   margin-top: 20px;
 }
 
-/* 🔥 TITLE */
+/* TITLE */
 .title {
   text-align: center;
   margin-bottom: var(--space-4);
   color: var(--color-primary);
 }
 
-/* 🔥 FORM */
+/* FORM */
 .form {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
 
-/* 🔥 FIELD */
+/* FIELD */
 .field {
   display: flex;
   flex-direction: column;
@@ -48,17 +46,15 @@
   color: var(--color-text-muted);
 }
 
-/* 🔥 INPUTS */
+/* INPUTS */
 .field input,
 .field textarea,
 .field select {
   padding: 10px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
-
   background: rgba(255, 255, 255, 0.05);
   color: white;
-
   transition: all 0.2s ease;
 }
 
@@ -67,7 +63,7 @@
   resize: vertical;
 }
 
-/* 🔥 FOCUS EFFECT */
+/*  FOCUS EFFECT */
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
@@ -76,7 +72,7 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* 🔥 IMAGE PREVIEW */
+/*  IMAGE PREVIEW */
 .imageWrapper {
   display: flex;
   flex-direction: column;
@@ -91,12 +87,12 @@
   border: 1px solid var(--color-border);
 }
 
-/* 🔥 FILE INPUT */
+/*  FILE INPUT */
 .imageWrapper input {
   color: var(--color-text-muted);
 }
 
-/* 🔥 SUBMIT BUTTON */
+/*  SUBMIT BUTTON */
 .submitBtn {
   margin-top: 10px;
 
@@ -128,7 +124,7 @@
   cursor: not-allowed;
 }
 
-/* 🔥 SPINNER */
+/*  SPINNER */
 .spinner {
   width: 16px;
   height: 16px;
@@ -138,7 +134,7 @@
   animation: spin 0.6s linear infinite;
 }
 
-/* 🔥 ANIMATION */
+/*  ANIMATION */
 @keyframes spin {
   to {
     transform: rotate(360deg);

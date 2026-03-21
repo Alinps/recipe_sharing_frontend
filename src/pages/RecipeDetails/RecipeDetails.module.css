@@ -41,11 +41,15 @@
 }
 
 .author {
-
   color: var(--color-text-muted);
   margin-bottom: var(--space-4);
-
 }
+
+.difficulty {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
 
 /* sections */
 
@@ -184,9 +188,17 @@
 @media (max-width: 768px) {
 
   .wrapper {
-
     grid-template-columns: 1fr;
-
   }
+
+  .imageSection {
+  position: relative;
+  top: 100px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  height: 420px;
+  margin-bottom: 55px;
+}
 
 }

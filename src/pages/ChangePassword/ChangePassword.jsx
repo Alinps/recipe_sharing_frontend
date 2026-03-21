@@ -63,7 +63,7 @@ function ChangePassword() {
         current_password: form.current_password,
         new_password: form.new_password,
       });
-
+      showToast(res.data.message,"success");
       setMessage(res.data.message);
       setForm({
         current_password: "",
@@ -72,7 +72,7 @@ function ChangePassword() {
       });
 
     } catch (err) {
-      showToast("Something went wrong");
+      showToast("Something went wrong","error");
       setMessage(
         err.response?.data?.message || "Something went wrong"
       );

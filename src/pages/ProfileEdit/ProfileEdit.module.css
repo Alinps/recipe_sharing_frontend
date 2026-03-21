@@ -1,6 +1,6 @@
 /*FULL PAGE WRAPPER */
 .wrapper {
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,14 +11,11 @@
   width: 100%;
   max-width: 600px;
   padding: var(--space-5);
-
   background: var(--color-surface);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-
   backdrop-filter: blur(10px);
   box-shadow: var(--shadow-soft);
-
   margin-top: 20px;
 }
 
@@ -144,4 +141,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@media only screen and (max-width:700px){
+.card {
+  width: 80%;
+  max-width: 600px;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+  margin-top: 20px;
+}
 }
