@@ -44,13 +44,13 @@
   background: #1e1e2f; /* dark soft background */
   border-radius: 30px;
   padding: 10px 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 /* Hover + Focus effect */
 .searchBox:focus-within {
-  box-shadow: 0 0 0 2px #6c63ff;
+  box-shadow: 0 0 0 2px #ffb300;
   transform: scale(1.02);
 }
 

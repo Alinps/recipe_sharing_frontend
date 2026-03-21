@@ -10,6 +10,7 @@ import EditRecipe from "./pages/EditRecipe/EditRecipe";
 import { Route,Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute"; 
 import PublicRoute from "./components/PublicRoute";
+import ProfileEdit from "./pages/ProfileEdit/ProfileEdit";
 function App() {
   return (
     <>
@@ -69,6 +70,14 @@ function App() {
                 element={
                 <ProtectedRoute>
                   <EditRecipe />
+                </ProtectedRoute>
+              } />
+
+             <Route 
+                path="/edit/profile" 
+                element={
+                <ProtectedRoute>
+                  <ProfileEdit />
                 </ProtectedRoute>
               } />
 

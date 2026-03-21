@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import API from "../../services/api";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function Profile() {
 
@@ -12,7 +12,7 @@ function Profile() {
   const [activeTab, setActiveTab] = useState("recipes");
   const [wishlistLoaded, setWishlistLoaded] = useState(false);
   const [loading, setLoading] = useState(true);
-  const BASE_URL =  "http://127.0.0.1:8000/media"
+  const BASE_URL =  "http://127.0.0.1:8000/"
 
    
   useEffect(() => {
@@ -53,7 +53,7 @@ function Profile() {
       <div className={styles.header}>
 
         <img
-          src={user.image? `${BASE_URL}/${user.image}`: `${BASE_URL}/profile-pic.png`}
+          src={user.image? `${BASE_URL}/${user.image}`: `${BASE_URL}/media/profile-pic.png`}
           className={styles.avatar}
           alt="profile"
         />
@@ -66,8 +66,8 @@ function Profile() {
             <span><strong>{user.recipes.length}</strong> Recipes</span>
             <span><strong>{wishlist.length}</strong> Wishlist</span>
           </div>
-
-          <button className={styles.editBtn}>Edit Profile</button>
+          <Link to="/edit/profile" className={styles.editBtn} >Edit</Link>
+          
         </div>
       </div>
 

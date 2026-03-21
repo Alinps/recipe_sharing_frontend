@@ -96,7 +96,6 @@ function Recipes() {
         {/* 🔍 SEARCH BAR */}
        <div className={styles.searchContainer}>
         <div className={styles.searchBox}>
-          <span className={styles.searchIcon}>🔍</span>
           <input
             type="text"
             placeholder="Search recipes..."
