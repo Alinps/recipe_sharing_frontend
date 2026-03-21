@@ -67,6 +67,7 @@ function Profile() {
             <span><strong>{wishlist.length}</strong> Wishlist</span>
           </div>
           <Link to="/edit/profile" className={styles.editBtn} >Edit</Link>
+          <Link to="/changepassword" className={styles.editBtn} >Change Password</Link>
           
         </div>
       </div>

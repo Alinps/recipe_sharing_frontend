@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
 import styles from "./ProfileEdit.module.css";
+import { useToast } from "../../context/ToastContext";
 
 function ProfileEdit() {
   const [user, setUser] = useState({
@@ -12,6 +13,7 @@ function ProfileEdit() {
   const [preview, setPreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+const { showToast } = useToast();
     const BASE_URL =  "http://127.0.0.1:8000/"
 
   //Fetch Profile
@@ -62,14 +64,16 @@ function ProfileEdit() {
         formData.append("image", user.image);
       }
 
-      const res = await API.patch("profile/", formData, {
+      const res = await API.patch("profile/edit/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
-      setMessage("Profile updated successfully ✅");
+      
+      setMessage("Profile updated successfully");
       setUser(res.data);
+      showToast("Profile updated successfully");
     } catch (err) {
-      setMessage("Update failed ❌");
+      showToast("Update failed","error");
+      setMessage("Update failed");
     } finally {
       setLoading(false);
     }
@@ -120,7 +124,7 @@ function ProfileEdit() {
       </button>
 
       {/* MESSAGE */}
-      {message && <p className={styles.message}>{message}</p>}
+      {/* {message && <p className={styles.message}>{message}</p>} */}
 
     </form>
   </div>

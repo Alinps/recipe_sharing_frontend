@@ -81,7 +81,9 @@
 }
 
 .editBtn {
-  padding: 8px 14px;
+  padding: 5px 12px;
+  margin-left: 8px;
+  color: black;
   border: none;
   background: #efefef;
   border-radius: 6px;

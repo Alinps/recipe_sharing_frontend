@@ -11,6 +11,7 @@ import { Route,Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute"; 
 import PublicRoute from "./components/PublicRoute";
 import ProfileEdit from "./pages/ProfileEdit/ProfileEdit";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
 function App() {
   return (
     <>
@@ -78,6 +79,15 @@ function App() {
                 element={
                 <ProtectedRoute>
                   <ProfileEdit />
+                </ProtectedRoute>
+              } />
+
+
+              <Route
+                path="/changepassword" 
+                element={
+                <ProtectedRoute>
+                  <ChangePassword />
                 </ProtectedRoute>
               } />
 
