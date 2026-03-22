@@ -3,7 +3,7 @@ import styles from "./RecipeCard.module.css";
 
 function RecipeCard({ id, title, chef, image }) {
 
-  const BASE_URL = "http://127.0.0.1:8000";
+  const BASE_URL = "https://recipe-sharing-platform-o4zt.onrender.com";
 
   const imageUrl = image?.startsWith("http")
     ? image
