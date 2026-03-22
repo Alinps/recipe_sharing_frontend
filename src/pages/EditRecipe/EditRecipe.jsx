@@ -13,6 +13,7 @@ function EditRecipe() {
   const [formData, setFormData] = useState({
     title: "",
     ingredients: "",
+    description:"",
     steps: "",
     cooking_time: "",
     difficulty: "",
@@ -32,6 +33,7 @@ function EditRecipe() {
           steps: data.steps,
           cooking_time: data.cooking_time,
           difficulty: data.difficulty_level,
+          description:data.description,
           image: null,
         });
         setPreview(`${data.image}`);
@@ -71,6 +73,7 @@ function EditRecipe() {
     data.append("recipe_id", id);
     data.append("title", formData.title);
     data.append("ingredients", formData.ingredients);
+    data.append("description",formData.description);
     data.append("steps", formData.steps);
     data.append("cooking_time", formData.cooking_time);
     data.append("difficulty", formData.difficulty);
@@ -116,6 +119,16 @@ function EditRecipe() {
           type="text"
           name="title"
           value={formData.title}
+          onChange={handleChange}
+        />
+      </div>
+
+
+        <div className={styles.field}>
+        <label>About Recipe</label>
+        <textarea
+          name="description"
+          value={formData.description}
           onChange={handleChange}
         />
       </div>

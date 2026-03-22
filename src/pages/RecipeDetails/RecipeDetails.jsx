@@ -25,7 +25,6 @@ function RecipeDetails() {
     const fetchRecipe = async () => {
       try {
         const response = await API.get(`recipedetails/${id}`);
-        console.log(response.data.data)
         setRecipe(response.data.data);
         setIsSaved(response.data.data.is_saved);
       } catch (err) {
@@ -113,6 +112,9 @@ const handleDelete = async () => {
               <span className={styles.tooltip}>Edit</span>
               </div>
           </h1>
+          <div className={styles.section}>
+            <p>{recipe.description}</p>
+          </div>
           
      
           <p className={styles.author}>

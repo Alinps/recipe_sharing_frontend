@@ -12,6 +12,7 @@ function CreateRecipe() {
     ingredients: "",
     steps: "",
     difficulty_level: "Easy",
+    description:"",
     cooking_time: "",
     image: null
   });
@@ -47,6 +48,7 @@ function CreateRecipe() {
     data.append("steps", formData.steps);
     data.append("difficulty_level", formData.difficulty_level);
     data.append("cooking_time", formData.cooking_time);
+    data.append("description",formData.description);
     data.append("image", formData.image);
 
     try {
@@ -61,6 +63,7 @@ function CreateRecipe() {
         steps: "",
         difficulty_level: "Easy",
         cooking_time: "",
+        description:"",
         image: null
       });
 
@@ -91,6 +94,16 @@ function CreateRecipe() {
               <input
                 name="title"
                 value={formData.title}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label>About Recipe</label>
+              <input
+                name="description"
+                value={formData.description}
                 onChange={handleChange}
                 required
               />

@@ -14,28 +14,25 @@ import ProfileEdit from "./pages/ProfileEdit/ProfileEdit";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import Landing from "./pages/Landing/Landing";
 import { useLocation } from "react-router-dom";
+
+
+
 function App() {
+
    const location = useLocation();
-  
-const isLanding = location.pathname === "/";
-  const hideNavbar = location.pathname === "/";
-  return (
+   const isLanding = location.pathname === "/";
+   const hideNavbar = location.pathname === "/";
+
+   return (
     <>
         {!hideNavbar && <Navbar />}
-          {isLanding ? (
-        <Landing />
-      ):(
+        {isLanding ? (
+          <Landing />
+          ):(
       <main className="page">
 
         <Routes>
-
-          <Route 
-                path="/" 
-                element={
-                      
-                          <Landing />
-                       
-                      } />
+          <Route path="/" element={<Landing />} />
 
           
           <Route 
@@ -52,7 +49,13 @@ const isLanding = location.pathname === "/";
                           <Register />
                         </PublicRoute>} 
                         />
-          <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route 
+                path="/home" 
+                element={
+                          <ProtectedRoute>
+                              <Home />
+                          </ProtectedRoute>
+                        } />
 
           <Route 
                 path="/recipes" 
