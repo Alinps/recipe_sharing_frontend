@@ -14,7 +14,7 @@ function ProfileEdit() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 const { showToast } = useToast();
-    const BASE_URL =  "http://127.0.0.1:8000/"
+
 
   //Fetch Profile
   useEffect(() => {
@@ -88,7 +88,7 @@ const { showToast } = useToast();
 
       {/* PROFILE IMAGE */}
       <div className={styles.profileImageWrapper}>
-        <img src={preview? `${BASE_URL}/${preview}`: `${BASE_URL}/media/profile-pic.png`} alt="profile" />
+        <img src={preview} alt="profile" />
       </div>
 
       <div className={styles.fileInput}>

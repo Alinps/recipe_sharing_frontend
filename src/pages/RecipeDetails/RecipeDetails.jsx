@@ -19,10 +19,8 @@ function RecipeDetails() {
   const { showToast } = useToast();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const BASE_URL = "http://127.0.0.1:8000https://recipe-sharing-platform-o4zt.onrender.com";
-  const imageUrl = recipe.image?.startsWith("http")
-    ? recipe.image
-    : `${BASE_URL}${recipe.image}`;
+ 
+
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
@@ -82,7 +80,7 @@ const handleDelete = async () => {
         {/* Image */}
         <div className={styles.imageSection}>
           <img
-            src={`${imageUrl}`}
+            src={recipe.image}
             alt={recipe.title}
           />
 

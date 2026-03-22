@@ -3,11 +3,7 @@ import styles from "./RecipeCard.module.css";
 
 function RecipeCard({ id, title, chef, image }) {
 
-  const BASE_URL = "https://recipe-sharing-platform-o4zt.onrender.com";
-
-  const imageUrl = image?.startsWith("http")
-    ? image
-    : `${BASE_URL}${image}`;
+;
 
   return (
 
@@ -16,7 +12,7 @@ function RecipeCard({ id, title, chef, image }) {
       <div className={styles.imageWrapper}>
 
         <img
-          src={imageUrl}
+          src={image}
           alt={title}
           className={styles.image}
         />
