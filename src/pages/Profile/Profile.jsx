@@ -12,7 +12,7 @@ function Profile() {
   const [activeTab, setActiveTab] = useState("recipes");
   const [wishlistLoaded, setWishlistLoaded] = useState(false);
   const [loading, setLoading] = useState(true);
-  const BASE_URL =  "http://127.0.0.1:8000/"
+
 
    
   useEffect(() => {
@@ -53,7 +53,7 @@ function Profile() {
       <div className={styles.header}>
 
         <img
-          src={user.image? `${BASE_URL}/${user.image}`: `${BASE_URL}/media/profile-pic.png`}
+          src={user.image}
           className={styles.avatar}
           alt="profile"
         />
