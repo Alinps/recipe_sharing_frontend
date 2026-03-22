@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "../../context/ToastContext";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../store/authSlice";
-function Login() {
+function Login({ onSuccess }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +22,8 @@ function Login() {
       const response = await API.post("login_user/", data);
       dispatch(loginSuccess(response.data));
       showToast("Login successful!", "success");
-      navigate("/");
+      onSuccess(); 
+      navigate("/home");
     }catch (error) {
         if (error) {
             console.log(error);
@@ -35,7 +36,6 @@ function Login() {
 
   return (
 
-    <div className="container">
       <section className={styles.wrapper}>
         <div className={styles.card}>
 
@@ -73,7 +73,7 @@ function Login() {
 
       </section>
 
-    </div>
+
 
   );
 

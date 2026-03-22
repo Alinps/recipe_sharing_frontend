@@ -106,12 +106,7 @@ CONTAINER SYSTEM
 PAGE LAYOUT
 ------------------------------ */
 
-.page {
 
-  padding-top: 90px;
-  padding-bottom: var(--space-6);
-
-}
 
 /* ------------------------------
 BUTTON BASE
@@ -155,17 +150,13 @@ LAYOUT SYSTEM
 ------------------------------ */
 
 /* page wrapper */
-
 .page {
-
   min-height: 100vh;
-  padding-top: 70px; /* height of navbar */
+  padding-top: 70px; /* navbar height */
   padding-bottom: var(--space-6);
   display: flex;
   flex-direction: column;
-
 }
-
 /* section spacing */
 
 .section {

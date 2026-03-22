@@ -6,7 +6,7 @@ function PublicRoute({ children }) {
     (state) => state.auth.isAuthenticated
   );
 
-  return isAuthenticated ? <Navigate to="/" /> : children;
+  return isAuthenticated ? <Navigate to="/home" /> : children;
 }
 
 export default PublicRoute;

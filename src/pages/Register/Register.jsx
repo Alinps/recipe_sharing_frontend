@@ -3,7 +3,7 @@ import styles from "./Register.module.css";
 import API from "../../services/api"
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../context/ToastContext";
-function Register() {
+function Register({ onSuccess }) {
 
   const [formData, setFormData] = useState({
     name:"",
@@ -25,8 +25,8 @@ function Register() {
     try {
       const response = await API.post("signup/", formData);
       showToast("Registration successful", "success");
+      onSuccess(); 
       navigate("/");
-
       console.log(response.data);
     }catch (error) {
         if (error.response && error.response.data) {
@@ -41,17 +41,10 @@ function Register() {
 
 
   return (
-
-    <div className="container">
-
       <section className={styles.wrapper}>
-
         <div className={styles.card}>
-
           <h2 className={styles.title}>Create Account</h2>
-
           <form onSubmit={handleSubmit} className={styles.form}>
-
             <div className={styles.field}>
               <label>Name</label>
               <input
@@ -61,7 +54,6 @@ function Register() {
                 required
               />
             </div>
-
             <div className={styles.field}>
               <label>Email</label>
               <input
@@ -71,7 +63,6 @@ function Register() {
                 required
               />
             </div>
-
             <div className={styles.field}>
               <label>Password</label>
               <input
@@ -81,21 +72,13 @@ function Register() {
                 required
               />
             </div>
-
             <button type="submit" className="btn">
               Register
             </button>
-
           </form>
-
         </div>
-
       </section>
-
-    </div>
-
   );
-
 }
 
 export default Register;

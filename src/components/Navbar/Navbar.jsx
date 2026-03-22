@@ -4,6 +4,7 @@ import styles from "./Navbar.module.css";
 import { useToast } from "../../context/ToastContext";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice"; 
+import { useNavigate } from "react-router-dom";
 import API from "../../services/api"
 
 function Navbar() {
@@ -11,6 +12,7 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { showToast } = useToast();
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -21,6 +23,7 @@ function Navbar() {
     const response = await API.post("logout/")
     showToast(response.data.message, "success");
     dispatch(logout());
+    navigate("/");
     }catch(error){
       console.log(error);
       showToast("logout faild","error")
@@ -33,7 +36,7 @@ function Navbar() {
           MasterChef
         </Link>
         <nav className={`${styles.navLinks} ${menuOpen ? styles.active : ""}`}>
-          <Link to="/">Home</Link>
+          {user &&<Link to="/home">Home</Link>}
           {user && <Link to="/recipes">Recipes</Link>}
           {user && <Link to="/add-recipe">Add Recipe</Link>}
           {user && <Link to={`/profile/${user.id}`}>Profile</Link>}
