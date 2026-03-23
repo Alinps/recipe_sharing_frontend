@@ -64,12 +64,11 @@ const { showToast } = useToast();
         formData.append("image", user.image);
       }
 
-      const res = await API.patch("profile/edit/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await API.patch("profile/edit/", formData);
       
       setMessage("Profile updated successfully");
       setUser(res.data);
+      setPreview(res.data.image);
       showToast("Profile updated successfully");
     } catch (err) {
       showToast("Update failed","error");
@@ -78,6 +77,13 @@ const { showToast } = useToast();
       setLoading(false);
     }
   };
+  useEffect(() => {
+  return () => {
+    if (preview && preview.startsWith("blob:")) {
+      URL.revokeObjectURL(preview);
+    }
+  };
+}, [preview]);
 
   return (
    <div className={styles.wrapper}>
@@ -88,7 +94,9 @@ const { showToast } = useToast();
 
       {/* PROFILE IMAGE */}
       <div className={styles.profileImageWrapper}>
-        <img src={preview} alt="profile" />
+        <img src={preview || 
+          "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"}
+           alt="profile" />
       </div>
 
       <div className={styles.fileInput}>

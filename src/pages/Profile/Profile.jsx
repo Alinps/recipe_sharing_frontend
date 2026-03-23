@@ -53,7 +53,7 @@ function Profile() {
       <div className={styles.header}>
 
         <img
-          src={user.image}
+          src={user.image|| "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"}
           className={styles.avatar}
           alt="profile"
         />
