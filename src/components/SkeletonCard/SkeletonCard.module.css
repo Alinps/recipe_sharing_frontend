@@ -1,0 +1,58 @@
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1e1e2f;
+  padding: 10px;
+}
+
+.image {
+  width: 100%;
+  height: 160px;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    #2a2a3d 25%,
+    #3a3a5a 50%,
+    #2a2a3d 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+
+.text {
+  height: 14px;
+  margin-top: 10px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    #2a2a3d 25%,
+    #3a3a5a 50%,
+    #2a2a3d 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+
+.subtext {
+  height: 12px;
+  margin-top: 8px;
+  width: 60%;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    #2a2a3d 25%,
+    #3a3a5a 50%,
+    #2a2a3d 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import styles from "./Recipes.module.css";
 import API from "../../services/api";
+import SkeletonCard from "../../components/SkeletonCard/SkeletonCard";
 
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -120,10 +121,20 @@ function Recipes() {
               image={recipe.image}
             />
           ))}
+
+           {/* Skeleton Loader */}
+  {loading && recipes.length === 0 && (
+  Array.from({ length: 6 }).map((_, index) => (
+    <SkeletonCard key={index} />
+  ))
+)}
+
+{loading && recipes.length > 0 && (
+  <div className={styles.spinner}></div>
+)}
         </div>
 
-        {/* 🔄 LOADING */}
-        {loading && <p className={styles.message}>Loading recipes...</p>}
+
 
         {/* 🚫 NO MORE DATA */}
         {!hasMore && !loading && (
