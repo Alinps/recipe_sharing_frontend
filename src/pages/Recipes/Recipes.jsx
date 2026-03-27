@@ -94,7 +94,7 @@ function Recipes() {
       <section className="section">
         <h1 className={styles.title}>All Recipes</h1>
 
-        {/* 🔍 SEARCH BAR */}
+        {/*  SEARCH BAR */}
        <div className={styles.searchContainer}>
         <div className={styles.searchBox}>
           <input
@@ -107,10 +107,10 @@ function Recipes() {
         </div>
       </div>
 
-        {/* ❌ ERROR */}
+        {/*  ERROR */}
         {error && <p className={styles.error}>{error}</p>}
 
-        {/* 📦 GRID */}
+        {/*  GRID */}
         <div className={styles.grid}>
           {recipes.map((recipe) => (
             <RecipeCard
@@ -136,7 +136,7 @@ function Recipes() {
 
 
 
-        {/* 🚫 NO MORE DATA */}
+        {/*NO MORE DATA */}
         {!hasMore && !loading && (
           <p className={styles.message}>No more recipes</p>
         )}

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
+import RecipeDetailsSkeleton from "../../components/RecipeDetailsSkeleton/RecipeDetailsSkeleton";
 
 function RecipeDetails() {
 
@@ -70,7 +71,7 @@ const handleDelete = async () => {
 };
 
 
-  if (loading) return <p>Loading recipe...</p>;
+  if (loading) return <RecipeDetailsSkeleton />;
   if (error) return <p>{error}</p>;
 
   return (
