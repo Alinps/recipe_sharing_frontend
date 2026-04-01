@@ -7,117 +7,126 @@ import RecipeDetails from "./pages/RecipeDetails/RecipeDetails";
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
 import Profile from "./pages/Profile/Profile";
 import EditRecipe from "./pages/EditRecipe/EditRecipe";
-import { Route,Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute"; 
 import PublicRoute from "./components/PublicRoute";
 import ProfileEdit from "./pages/ProfileEdit/ProfileEdit";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import Landing from "./pages/Landing/Landing";
-import { useLocation } from "react-router-dom";
-
-
+import ServerWakeup from "./components/ServerWakeup/ServerWakeup";
 
 function App() {
+  const location = useLocation();
 
-   const location = useLocation();
-   const isLanding = location.pathname === "/";
-   const hideNavbar = location.pathname === "/";
+  // Hide navbar for specific pages
+  const hideNavbarPaths = ["/", "/landing"];
+  const hideNavbar = hideNavbarPaths.includes(location.pathname);
 
-   return (
+  return (
     <>
-        {!hideNavbar && <Navbar />}
-        {isLanding ? (
-          <Landing />
-          ):(
+      {!hideNavbar && <Navbar />}
+
       <main className="page">
-
         <Routes>
-          <Route path="/" element={<Landing />} />
+          {/* First entry point */}
+          <Route path="/" element={<ServerWakeup />} />
 
-          
+          {/* Landing page */}
+          <Route path="/landing" element={<Landing />} />
+
+          {/* Auth */}
           <Route 
-                path="/login" 
-                element={
-                        <PublicRoute>
-                          <Login />
-                        </PublicRoute>
-                      } />
-          <Route 
-                path="/register" 
-                element={
-                        <PublicRoute>
-                          <Register />
-                        </PublicRoute>} 
-                        />
-          <Route 
-                path="/home" 
-                element={
-                          <ProtectedRoute>
-                              <Home />
-                          </ProtectedRoute>
-                        } />
+            path="/login" 
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            } 
+          />
 
           <Route 
-                path="/recipes" 
-                element={
-                <ProtectedRoute>
-                  <Recipes />
-                </ProtectedRoute>
-              }/>
+            path="/register" 
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            } 
+          />
+
+          {/* Protected */}
+          <Route 
+            path="/home" 
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            } 
+          />
 
           <Route 
-                path="/recipes/:id" 
-                element={
-                  <ProtectedRoute>
-                    <RecipeDetails />
-                  </ProtectedRoute>
-                  }/>
-          <Route 
-                path="/add-recipe" 
-                element={
-                <ProtectedRoute>
-                  <CreateRecipe />
-                </ProtectedRoute> 
-                }/> 
-          <Route 
-                path="/profile/:id" 
-                element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              } />
+            path="/recipes" 
+            element={
+              <ProtectedRoute>
+                <Recipes />
+              </ProtectedRoute>
+            }
+          />
 
           <Route 
-                path="/edit/recipe/:id" 
-                element={
-                <ProtectedRoute>
-                  <EditRecipe />
-                </ProtectedRoute>
-              } />
+            path="/recipes/:id" 
+            element={
+              <ProtectedRoute>
+                <RecipeDetails />
+              </ProtectedRoute>
+            }
+          />
 
-             <Route 
-                path="/edit/profile" 
-                element={
-                <ProtectedRoute>
-                  <ProfileEdit />
-                </ProtectedRoute>
-              } />
+          <Route 
+            path="/add-recipe" 
+            element={
+              <ProtectedRoute>
+                <CreateRecipe />
+              </ProtectedRoute>
+            } 
+          />
 
+          <Route 
+            path="/profile/:id" 
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } 
+          />
 
-              <Route
-                path="/changepassword" 
-                element={
-                <ProtectedRoute>
-                  <ChangePassword />
-                </ProtectedRoute>
-              } />
+          <Route 
+            path="/edit/recipe/:id" 
+            element={
+              <ProtectedRoute>
+                <EditRecipe />
+              </ProtectedRoute>
+            } 
+          />
 
+          <Route 
+            path="/edit/profile" 
+            element={
+              <ProtectedRoute>
+                <ProfileEdit />
+              </ProtectedRoute>
+            } 
+          />
+
+          <Route
+            path="/changepassword" 
+            element={
+              <ProtectedRoute>
+                <ChangePassword />
+              </ProtectedRoute>
+            } 
+          />
         </Routes>
-        
-
       </main>
-      )}
-      
     </>
   );
 }

@@ -1,0 +1,52 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+}
+
+/* Spinner */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #334155;
+  border-top: 5px solid #38bdf8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Success icon */
+.success {
+  font-size: 50px;
+  color: #22c55e;
+}
+
+/* Error icon */
+.error {
+  font-size: 50px;
+  color: #ef4444;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background: #38bdf8;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0ea5e9;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
