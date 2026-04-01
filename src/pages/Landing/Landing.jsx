@@ -10,7 +10,7 @@ function Landing() {
    const [showRegister, setShowRegister] = useState(false);
   return (
 
-    <div className={styles.container + " pageReset"}>
+    <div className={styles.landing + " pageReset"}>
       <div className={styles.overlay}></div>
       <div className={styles.content}>
         <h1 className={styles.title}>MasterChef</h1>
