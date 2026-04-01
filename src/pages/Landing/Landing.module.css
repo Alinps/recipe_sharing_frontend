@@ -9,6 +9,13 @@
   background-position: center;
 }
 
+.pageReset {
+  min-height: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: block;
+}
+
 /* dark overlay */
 
 .overlay {
