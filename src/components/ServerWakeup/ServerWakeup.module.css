@@ -9,12 +9,7 @@
   color: white;
   text-align: center;
 }
-.pageReset {
-  min-height: auto;
-  padding-top: 0;
-  padding-bottom: 0;
-  display: block;
-}
+
 
 /* Spinner */
 .spinner {

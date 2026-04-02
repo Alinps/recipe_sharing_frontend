@@ -36,7 +36,7 @@ function ServerWakeup() {
   }, [navigate]);
 
   return (
-    <div className={`${styles.container} pageReset`}>
+    <div className={`${styles.container}`}>
       {status === "loading" && (
         <>
           <div className={styles.spinner}></div>

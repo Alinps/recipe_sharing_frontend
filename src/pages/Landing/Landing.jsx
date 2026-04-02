@@ -9,7 +9,7 @@ function Landing() {
   const [showLogin, setShowLogin] = useState(false);
    const [showRegister, setShowRegister] = useState(false);
   return (
-    <div className={styles.pageReset}>
+
     <div className={styles.landing}>
       <div className={styles.overlay}></div>
       <div className={styles.content}>
@@ -40,7 +40,7 @@ function Landing() {
         </div>
       </div>
     </div>
-    </div>
+
   );
 
 }
