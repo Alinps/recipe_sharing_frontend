@@ -1,3 +1,20 @@
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./pages/Home/Home";
+import Recipes from "./pages/Recipes/Recipes";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import RecipeDetails from "./pages/RecipeDetails/RecipeDetails";
+import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
+import Profile from "./pages/Profile/Profile";
+import EditRecipe from "./pages/EditRecipe/EditRecipe";
+import { Route, Routes, useLocation } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute"; 
+import PublicRoute from "./components/PublicRoute";
+import ProfileEdit from "./pages/ProfileEdit/ProfileEdit";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
+import Landing from "./pages/Landing/Landing";
+import ServerWakeup from "./components/ServerWakeup/ServerWakeup";
+
 function App() {
   const location = useLocation();
 
@@ -116,5 +133,4 @@ function App() {
     </>
   );
 }
-
 export default App;
