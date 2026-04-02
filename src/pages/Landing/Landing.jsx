@@ -9,8 +9,8 @@ function Landing() {
   const [showLogin, setShowLogin] = useState(false);
    const [showRegister, setShowRegister] = useState(false);
   return (
-
-    <div className={styles.landing + " pageReset"}>
+    <div className={styles.pageReset}>
+    <div className={styles.landing}>
       <div className={styles.overlay}></div>
       <div className={styles.content}>
         <h1 className={styles.title}>MasterChef</h1>
@@ -39,6 +39,7 @@ function Landing() {
 
         </div>
       </div>
+    </div>
     </div>
   );
 
