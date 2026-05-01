@@ -51,8 +51,20 @@ function RecipeDetails() {
       showToast("Removed from wishlist");
     }
 
-  } catch (err) {
-    showToast("Something went wrong");
+  } catch (error) {
+   let message = "Something went wrong";
+      if (error.response?.data){
+        const data = error.response.data;
+
+        if (data.error){
+          message = data.error;
+        } else {
+          // handle field errors
+          const firstKey = object.keys(data)[0];
+          message = data[firstKey][0];
+        }
+      }
+      showToast(message, "error");
   }
 };
 
@@ -65,8 +77,20 @@ const handleDelete = async () => {
     await API.delete(`delete/${recipe.id}`);
     showToast("Recipe deleted successfully");
     navigate("/"); // or profile page
-  } catch (err) {
-    showToast("Failed to delete recipe");
+  } catch (error) {
+    let message = "Failed to delete recipe";
+      if (error.response?.data){
+        const data = error.response.data;
+
+        if (data.error){
+          message = data.error;
+        } else {
+          // handle field errors
+          const firstKey = object.keys(data)[0];
+          message = data[firstKey][0];
+        }
+      }
+      showToast(message, "error");
   }
 };
 

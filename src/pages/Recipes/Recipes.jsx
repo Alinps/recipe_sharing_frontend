@@ -46,8 +46,21 @@ function Recipes() {
 
       setHasMore(!!res.data.next);
       setOffset(currentOffset + LIMIT);
-    } catch (err) {
-      setError("Failed to load recipes");
+    } catch (error) {
+      
+      let message = "Failed to load recipes";
+      if (error.response?.data){
+        const data = error.response.data;
+        if (data.error){
+          setError(data.error);
+        } else {
+          // handle field errors
+          const firstKey = object.keys(data)[0];
+          message = data[firstKey][0];
+          setError( message )
+        }
+      }
+      setError( message )
     } finally {
       setLoading(false);
     }

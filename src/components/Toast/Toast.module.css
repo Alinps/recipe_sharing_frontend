@@ -24,6 +24,7 @@
   align-items: center;
 
   animation: slideIn 0.3s ease;
+  z-index: 10000;
 
 }
 

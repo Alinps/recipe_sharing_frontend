@@ -29,13 +29,21 @@ function Register({ onSuccess }) {
       navigate("/");
       console.log(response.data);
     }catch (error) {
-        if (error.response && error.response.data) {
-            console.log(error);
-            setError(error.response.data.error);
-             showToast("error.response.data.error", "error");
+       let message = "Failed to connect to API";
+        if (error.response?.data){
+          const data = error.response.data;
+
+        if (data.error){
+          message = data.error;
         } else {
-            setError("Failed to connect API");
+          // handle field errors
+          const firstKey = object.keys(data)[0];
+          message = data[firstKey][0];
         }
+      }
+      console.error(message);
+      setError(message);
+      showToast(message, "error");
     }
   };
 

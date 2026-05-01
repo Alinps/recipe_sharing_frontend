@@ -40,8 +40,22 @@ function Profile() {
         const res = await API.get(`profile/${id}/wishlist/`);
         setWishlist(res.data);
         setWishlistLoaded(true);
-      } catch (err) {
-        console.error("Failed to load wishlist");
+      } catch (error) {
+        
+        let message = "Failed to load wishlist";
+        if (error.response?.data){
+          const data = error.response.data;
+
+        if (data.error){
+          message = data.error;
+        } else {
+          // handle field errors
+          const firstKey = object.keys(data)[0];
+          message = data[firstKey][0];
+        }
+      }
+      console.error(message);
+      showToast(message, "error");
       }
     }
   };

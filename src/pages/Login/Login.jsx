@@ -25,12 +25,20 @@ function Login({ onSuccess }) {
       onSuccess(); 
       navigate("/home");
     }catch (error) {
-        if (error) {
-            console.log(error);
-            showToast("Invalid credentials", "error");
+        let message = "Failed to connect to API";
+        if (error.response?.data){
+          const data = error.response.data;
+
+        if (data.error){
+          message = data.error;
         } else {
-            showToast("Failed to connect  to API", "error");
+          // handle field errors
+          const firstKey = object.keys(data)[0];
+          message = data[firstKey][0];
         }
+      }
+      console.error(message);
+      showToast(message, "error");
     }
   };
 

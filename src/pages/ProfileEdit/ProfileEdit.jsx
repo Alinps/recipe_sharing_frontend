@@ -70,9 +70,22 @@ const { showToast } = useToast();
       setUser(res.data);
       setPreview(res.data.image);
       showToast("Profile updated successfully");
-    } catch (err) {
-      showToast("Update failed","error");
+    } catch (error) {
       setMessage("Update failed");
+      let message = "Update failed";
+      if (error.response?.data){
+        const data = error.response.data;
+
+        if (data.error){
+          message = data.error;
+        } else {
+          // handle field errors
+          const firstKey = object.keys(data)[0];
+          message = data[firstKey][0];
+        }
+      }
+      setMessage(message);
+      showToast(message, "error");
     } finally {
       setLoading(false);
     }
