@@ -68,9 +68,19 @@ function CreateRecipe() {
       });
 
     } catch (error) {
+      let message = "Failed to create recipe";
+      if (error.response?.data){
+        const data = error.response.data;
 
-      showToast("Failed to create recipe", "error");
-
+        if (data.error){
+          message = data.error;
+        } else {
+          // handle field errors
+          const firstKey = object.keys(data)[0];
+          message = data[firstKey][0];
+        }
+      }
+      showToast(message, "error");
     }
 
   };
