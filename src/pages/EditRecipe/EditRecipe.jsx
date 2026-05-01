@@ -103,8 +103,19 @@ function EditRecipe() {
       showToast("Recipe updated successfully");
       navigate(`/recipes/${id}`);
     } catch (err) {
-      let message = "Failed to Edit"
-      showToast("Update failed");
+      let message = "Failed to load";
+        if (err.response?.data){
+          const data = err.response.data;
+
+        if (data.error){
+          message = data.error;
+        } else {
+          // handle field errors
+          const firstKey = object.keys(data)[0];
+          message = data[firstKey][0];
+        }
+      }
+      showToast(message, "error");
     }finally {
     setSubmitting(false); 
   }
