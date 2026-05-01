@@ -82,11 +82,12 @@ const { showToast } = useToast();
           // handle field errors
           const firstKey = object.keys(data)[0];
           message = data[firstKey][0];
+          console.log(message)
         }
       }
       showToast(message, "error");
       setMessage(message);
-      
+
     } finally {
       setLoading(false);
     }
