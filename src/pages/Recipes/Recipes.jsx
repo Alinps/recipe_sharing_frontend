@@ -54,12 +54,12 @@ function Recipes() {
         if (data.error){
           setError(data.error);
         } else {
-          // handle field errors
-          const firstKey = object.keys(data)[0];
-          message = data[firstKey][0];
-          setError( message )
-        }
-      }
+          const firstKey = Object.keys(data)[0];
+          const value = data[firstKey];
+
+          message = Array.isArray(value) ? value[0] : value;
+    }
+  }
       setError( message )
     } finally {
       setLoading(false);

@@ -35,13 +35,14 @@ function Register({ onSuccess }) {
 
         if (data.error){
           message = data.error;
-        } else {
-          // handle field errors
-          const firstKey = object.keys(data)[0];
-          message = data[firstKey][0];
-        }
-      }
-      console.error(message);
+        }else {
+          const firstKey = Object.keys(data)[0];
+          const value = data[firstKey];
+
+          message = Array.isArray(value) ? value[0] : value;
+    }
+  }
+      
       setError(message);
       showToast(message, "error");
     }

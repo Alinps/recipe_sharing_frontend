@@ -66,7 +66,7 @@ const { showToast } = useToast();
 
       const res = await API.patch("profile/edit/", formData);
       
-      setMessage("Profile updated successfully");
+
       setUser(res.data);
       setPreview(res.data.image);
       showToast("Profile updated successfully");
@@ -79,12 +79,12 @@ const { showToast } = useToast();
         if (data.error){
           message = data.error;
         } else {
-          // handle field errors
-          const firstKey = object.keys(data)[0];
-          message = data[firstKey][0];
-          console.log(message)
-        }
-      }
+          const firstKey = Object.keys(data)[0];
+          const value = data[firstKey];
+
+          message = Array.isArray(value) ? value[0] : value;
+    }
+  }
       showToast(message, "error");
       setMessage(message);
 
