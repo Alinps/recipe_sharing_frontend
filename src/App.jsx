@@ -15,6 +15,8 @@ import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import Landing from "./pages/Landing/Landing";
 import ServerWakeup from "./components/ServerWakeup/ServerWakeup";
 
+import AdminLogin from "./pages/adminPages/AdminLogin";
+
 function App() {
   const location = useLocation();
 
@@ -53,6 +55,13 @@ function App() {
                   <Register />
                 </PublicRoute>
               } 
+            />
+
+            <Route
+            path="/admin/login"
+            element={
+              <AdminLogin />
+            }
             />
 
             {/* Protected */}
