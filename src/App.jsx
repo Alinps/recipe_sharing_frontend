@@ -58,7 +58,7 @@ function App() {
             />
 
             <Route
-            path="/admin/login"
+            path="/admin_login"
             element={
               <AdminLogin />
             }
