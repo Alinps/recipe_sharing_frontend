@@ -24,7 +24,7 @@ const adminAuthSlice = createSlice({
             state.admin = action.payload.admin;
             state.isAdminAuthenticated = true;
 
-            localStorage.setItem("adminToken", JSON.stringify(action.payload.token));
+            localStorage.setItem("adminToken", action.payload.token);
             localStorage.setItem("admin",JSON.stringify(action.payload.admin))
 
         },

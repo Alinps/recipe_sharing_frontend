@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./CreateRecipe.module.css";
 import API from "../../services/api";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../context/useToast";
 
 function CreateRecipe() {
 

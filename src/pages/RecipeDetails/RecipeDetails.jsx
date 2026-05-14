@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../services/api";
 import styles from "./RecipeDetails.module.css";
-import { useToast } from "../../context/ToastContext";
-import { useSelector, useDispatch } from "react-redux";
+import { useToast } from "../../context/useToast";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
@@ -15,7 +15,6 @@ function RecipeDetails() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const { showToast } = useToast();
   const navigate = useNavigate();
@@ -24,18 +23,45 @@ function RecipeDetails() {
 
   useEffect(() => {
     const fetchRecipe = async () => {
+
       try {
+
         const response = await API.get(`recipedetails/${id}`);
         setRecipe(response.data.data);
         setIsSaved(response.data.data.is_saved);
-      } catch (err) {
-        setError("Failed to load recipe");
-      } finally {
+
+
+      } catch (error) {
+
+      let message = "Failed to load";
+
+      if (error.response?.data){
+
+        const data = error.response.data;
+
+        if (data.error){
+
+          message = data.error;
+
+        } else {
+
+          const firstKey = Object.keys(data)[0];
+          const value = data[firstKey];
+          message = Array.isArray(value) ? value[0] : value;
+       }
+
+      }
+
+      showToast(message, "error");
+
+     } finally {
+
         setLoading(false);
+
       }
     };
     fetchRecipe();
-  }, [id]);
+  }, [id, showToast]);
 
   const handleWishlistToggle = async () => {
   try {
@@ -72,24 +98,36 @@ function RecipeDetails() {
 
 
 const handleDelete = async () => {
+
   const confirmDelete = window.confirm("Are you sure you want to delete this recipe?");
+
   if (!confirmDelete) return;
+
   try {
+
     await API.delete(`delete/${recipe.id}`);
     showToast("Recipe deleted successfully");
     navigate("/"); // or profile page
+
   } catch (error) {
+
     let message = "Failed to delete recipe";
+
       if (error.response?.data){
+
         const data = error.response.data;
 
         if (data.error){
+
           message = data.error;
+
         } else {
           // handle field errors
-          const firstKey = object.keys(data)[0];
+          const firstKey = Object.keys(data)[0];
           message = data[firstKey][0];
+
         }
+        
       }
       showToast(message, "error");
   }
@@ -97,7 +135,6 @@ const handleDelete = async () => {
 
 
   if (loading) return <RecipeDetailsSkeleton />;
-  if (error) return <p>{error}</p>;
 
   return (
 

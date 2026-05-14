@@ -2,7 +2,7 @@ import { useState } from "react";
 import API from "../../services/api";
 import styles from "./ChangePassword.module.css";
 import { Eye, EyeOff } from "lucide-react";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../context/useToast";
 
 function ChangePassword() {
   const [form, setForm] = useState({
@@ -18,7 +18,7 @@ function ChangePassword() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+
 
   //Password strength
   const getStrength = (password) => {
@@ -50,7 +50,7 @@ function ChangePassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("");
+
 
     if (form.new_password !== form.confirm_password) {
       return showToast("Passwords do not match","error");
@@ -64,18 +64,36 @@ function ChangePassword() {
         new_password: form.new_password,
       });
       showToast(res.data.message,"success");
-      setMessage(res.data.message);
+
       setForm({
         current_password: "",
         new_password: "",
         confirm_password: "",
       });
 
-    } catch (err) {
-      showToast("Something went wrong","error");
-      setMessage(
-        err.response?.data?.message || "Something went wrong"
-      );
+    } catch (error) {
+
+      let message = "Failed to load";
+
+      if (error.response?.data){
+
+        const data = error.response.data;
+
+        if (data.error){
+
+          message = data.error;
+
+        } else {
+
+          const firstKey = Object.keys(data)[0];
+          const value = data[firstKey];
+          message = Array.isArray(value) ? value[0] : value;
+       }
+
+      }
+
+      showToast(message, "error");
+
     } finally {
       setLoading(false);
     }
@@ -171,8 +189,7 @@ function ChangePassword() {
             {loading ? "Updating..." : "Change Password"}
           </button>
 
-          {/* MESSAGE */}
-          {/* {message && <p className={styles.message}>{message}</p>} */}
+         
 
         </form>
       </div>

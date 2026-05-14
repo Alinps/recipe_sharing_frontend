@@ -2,11 +2,11 @@ import { useState } from "react";
 import API from "../../services/api"
 import { useDispatch } from "react-redux";
 import { adminLoginSuccess } from "../../store/adminAuthSlice";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../context/useToast";
 
 
 function AdminLogin(){
-    let [email,setEamil] = useState('');
+    let [email,setEmail] = useState('');
     let [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const {showToast} = useToast();
@@ -31,7 +31,7 @@ function AdminLogin(){
         
             if(data.error){
 
-                const message = data.error;
+                 message = data.error;
 
             } else {
 

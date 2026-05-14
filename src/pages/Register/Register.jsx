@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./Register.module.css";
 import API from "../../services/api"
 import { useNavigate } from "react-router-dom";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../context/useToast";
 function Register({ onSuccess }) {
 
   const [formData, setFormData] = useState({
@@ -10,7 +10,6 @@ function Register({ onSuccess }) {
     email:"",
     password:""
   });
-  const [error,setError] = useState("");
   const navigate = useNavigate();
   const { showToast } = useToast();
   const handleChange = (e) => {
@@ -43,7 +42,7 @@ function Register({ onSuccess }) {
     }
   }
       
-      setError(message);
+   
       showToast(message, "error");
     }
   };

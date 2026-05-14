@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import API from "../../services/api";
 import styles from "./EditRecipe.module.css";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../context/useToast";
 
 function EditRecipe() {
 
@@ -46,7 +46,7 @@ function EditRecipe() {
           message = data.error;
         } else {
           // handle field errors
-          const firstKey = object.keys(data)[0];
+          const firstKey = Object.keys(data)[0];
           message = data[firstKey][0];
         }
       }
@@ -55,7 +55,7 @@ function EditRecipe() {
     };
 
     fetchRecipe();
-  }, [id]);
+  }, [id, showToast]);
 
   // 🔹 Handle input change
   const handleChange = (e) => {

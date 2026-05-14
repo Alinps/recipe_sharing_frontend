@@ -15,21 +15,27 @@ import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import Landing from "./pages/Landing/Landing";
 import ServerWakeup from "./components/ServerWakeup/ServerWakeup";
 
+
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
+import AdminPublicRoute from "./components/AdminPublicRoute";
 import AdminLogin from "./pages/adminPages/AdminLogin";
+import UserList from "./pages/adminPages/UserList";
 
 function App() {
   const location = useLocation();
 
   const noLayoutPaths = ["/", "/landing"];
+  const adminPaths = ["/admin_login", "/admin/dashboard"];
   const isNoLayout = noLayoutPaths.includes(location.pathname);
+  const isAdminLayout = adminPaths.includes(location.pathname);
 
   return (
     <>
       {/* Navbar */}
-      {!isNoLayout && <Navbar />}
+      {!isNoLayout && !isAdminLayout && <Navbar />}
 
       {/* 🔹 Fullscreen Routes (NO main wrapper) */}
-      {isNoLayout ? (
+      {isNoLayout || isAdminLayout ? (
         <Routes>
           <Route path="/" element={<ServerWakeup />} />
           <Route path="/landing" element={<Landing />} />
@@ -60,7 +66,18 @@ function App() {
             <Route
             path="/admin_login"
             element={
-              <AdminLogin />
+              <AdminPublicRoute>
+                <AdminLogin />
+              </AdminPublicRoute>
+            }
+            />
+
+             <Route
+            path="/admin/dashboard"
+            element={
+              <AdminProtectedRoute>
+              <UserList />
+              </AdminProtectedRoute>
             }
             />
 

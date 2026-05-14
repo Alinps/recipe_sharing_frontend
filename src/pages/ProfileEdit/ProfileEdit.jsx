@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
 import styles from "./ProfileEdit.module.css";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../context/useToast";
 
 function ProfileEdit() {
   const [user, setUser] = useState({
@@ -12,7 +12,7 @@ function ProfileEdit() {
 
   const [preview, setPreview] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+
 const { showToast } = useToast();
 
 
@@ -53,7 +53,7 @@ const { showToast } = useToast();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
+
 
     try {
       const formData = new FormData();
@@ -86,7 +86,7 @@ const { showToast } = useToast();
     }
   }
       showToast(message, "error");
-      setMessage(message);
+
 
     } finally {
       setLoading(false);
@@ -146,8 +146,7 @@ const { showToast } = useToast();
         {loading ? "Updating..." : "Update Profile"}
       </button>
 
-      {/* MESSAGE */}
-      {/* {message && <p className={styles.message}>{message}</p>} */}
+
 
     </form>
   </div>

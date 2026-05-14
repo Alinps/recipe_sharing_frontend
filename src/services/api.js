@@ -6,10 +6,14 @@ const API = axios.create({
 
 API.interceptors.request.use((config) => {
 
-  const token = localStorage.getItem("token");
+  const userToken = localStorage.getItem("token");
+  const adminToken = localStorage.getItem("adminToken");
+  const isAuthFreeRoute = config.url.includes("/signup") || config.url.includes("/login");
+  const isAdminRoute = config.url.includes("/user_admin");
+  const tokenToUse = isAdminRoute ? adminToken : userToken;
 
-  if (token && !config.url.includes("/signup") && !config.url.includes("/login")) {
-    config.headers.Authorization = `Token ${token}`;
+  if (tokenToUse && !isAuthFreeRoute) {
+    config.headers.Authorization = `Token ${tokenToUse}`;
   }
 
   return config;

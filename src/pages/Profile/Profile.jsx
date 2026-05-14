@@ -3,6 +3,7 @@ import styles from "./Profile.module.css";
 import API from "../../services/api";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import { Link, useParams } from "react-router-dom";
+import { useToast } from "../../context/useToast";
 
 function Profile() {
 
@@ -12,19 +13,45 @@ function Profile() {
   const [activeTab, setActiveTab] = useState("recipes");
   const [wishlistLoaded, setWishlistLoaded] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { showToast } = useToast();
 
 
    
   useEffect(() => {
     const fetchProfile = async () => {
+
       try {
+
         const response = await API.get(`profile/${id}/`);
         setUser(response.data);
         
       } catch (error) {
-        console.error("Failed to load profile");
+
+        let message = "Failed to load";
+
+        if (error.response?.data){
+
+            const data = error.response.data;
+
+            if (data.error){
+
+                message = data.error;
+
+            } else {
+
+                  const firstKey = Object.keys(data)[0];
+                  const value = data[firstKey];
+                  message = Array.isArray(value) ? value[0] : value;
+              }
+
+        }
+
+        showToast(message, "error");
+
       } finally {
+
         setLoading(false);
+
       }
     };
 
@@ -37,26 +64,32 @@ function Profile() {
 
     if (!wishlistLoaded) {
       try {
+
         const res = await API.get(`profile/${id}/wishlist/`);
         setWishlist(res.data);
         setWishlistLoaded(true);
+
       } catch (error) {
         
         let message = "Failed to load wishlist";
+
         if (error.response?.data){
+
           const data = error.response.data;
 
-        if (data.error){
-          message = data.error;
-        } else {
-        const firstKey = Object.keys(data)[0];
-        const value = data[firstKey];
+          if (data.error){
 
-        message = Array.isArray(value) ? value[0] : value;
-    }
-  }
+          message = data.error;
+
+          } else {
+              const firstKey = Object.keys(data)[0];
+              const value = data[firstKey];
+              message = Array.isArray(value) ? value[0] : value;
+            }     
+        }
       
       showToast(message, "error");
+
       }
     }
   };

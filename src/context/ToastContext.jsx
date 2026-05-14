@@ -1,20 +1,35 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import Toast from "../components/Toast/Toast";
 
 const ToastContext = createContext();
 
 export function ToastProvider({ children }) {
   const [toast, setToast] = useState(null);
-  let timer;
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+
   const showToast = (message, type = "success") => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
     setToast({ message, type });
-      timer = setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       setToast(null);
     }, 3000);
   };
 
   const closeToast = () => {
-    clearTimeout(timer);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
     setToast(null);
   };
   return (
@@ -31,6 +46,4 @@ export function ToastProvider({ children }) {
   );
 }
 
-export function useToast(){
-  return useContext(ToastContext);
-}
+export { ToastContext };
