@@ -34,11 +34,27 @@ function App() {
       {/* Navbar */}
       {!isNoLayout && !isAdminLayout && <Navbar />}
 
-      {/* 🔹 Fullscreen Routes (NO main wrapper) */}
+      {/* 🔹 Fullscreen routes without page wrapper */}
       {isNoLayout || isAdminLayout ? (
         <Routes>
           <Route path="/" element={<ServerWakeup />} />
           <Route path="/landing" element={<Landing />} />
+          <Route
+            path="/admin_login"
+            element={
+              <AdminPublicRoute>
+                <AdminLogin />
+              </AdminPublicRoute>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminProtectedRoute>
+                <UserList />
+              </AdminProtectedRoute>
+            }
+          />
         </Routes>
       ) : (
         /* 🔹 App Routes (WITH main wrapper) */
@@ -61,24 +77,6 @@ function App() {
                   <Register />
                 </PublicRoute>
               } 
-            />
-
-            <Route
-            path="/admin_login"
-            element={
-              <AdminPublicRoute>
-                <AdminLogin />
-              </AdminPublicRoute>
-            }
-            />
-
-             <Route
-            path="/admin/dashboard"
-            element={
-              <AdminProtectedRoute>
-              <UserList />
-              </AdminProtectedRoute>
-            }
             />
 
             {/* Protected */}

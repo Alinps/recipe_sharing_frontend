@@ -13,7 +13,7 @@ function Landing() {
     <div className={styles.landing}>
       <div className={styles.overlay}></div>
       <div className={styles.content}>
-        <h1 className={styles.title}><Link to="/admin_login>">MasterChef</Link></h1>
+        <h1 className={styles.title}><Link to="/admin_login">MasterChef</Link></h1>
         <p className={styles.subtitle}>
           Discover, create, and share amazing recipes with the world.
         </p>
