@@ -1,32 +1,74 @@
-import React, {useState, useEffect} from "react";
-import API from "../../services/api"
+import React, { useState, useEffect } from "react";
+import API from "../../services/api";
+import { useToast } from "../../context/useToast";
 
-function UserList(){
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [updatingUserId, setUpdatingUserId] = useState(null);
+  const { showToast } = useToast();
 
-    const [users, setUsers] = useState([]);
+  useEffect(() => {
+    let isMounted = true;
 
-    useEffect(() => {
-      let isMounted = true;
-
-      const fetchUsers = async () => {
-        try {
-          const response = await API.get("/user_admin/listuser");
-          console.log(response.data);
-
-          if (isMounted) {
-            setUsers(response.data.results || []);
-          }
-        } catch (error) {
-          console.log(error);
+    const fetchUsers = async () => {
+      try {
+        const response = await API.get("/user_admin/listuser");
+        if (isMounted) {
+          setUsers(response.data.results || []);
         }
-      };
+      } catch (error) {
+        let message = "Failed to fetch users";
+        if (error.response?.data) {
+          const data = error.response.data;
+          if (data.error) {
+            message = data.error;
+          } else {
+            const firstKey = Object.keys(data)[0];
+            const value = data[firstKey];
+            message = Array.isArray(value) ? value[0] : value;
+          }
+        }
+        showToast(message, "error");
+      }
+    };
 
-      fetchUsers();
+    fetchUsers();
 
-      return () => {
-        isMounted = false;
-      };
-    }, [])
+    return () => {
+      isMounted = false;
+    };
+  }, [showToast]);
+
+  const toggleBlockState = async (id) => {
+    setUpdatingUserId(id);
+    try {
+      const response = await API.patch(`/user_admin/togglestatus/${id}/`);
+      const { user_id, is_active, message } = response.data;
+
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === user_id ? { ...user, is_active } : user
+        )
+      );
+
+      showToast(message || "User status updated successfully", "success");
+    } catch (error) {
+      let message = "Failed to update user status";
+      if (error.response?.data) {
+        const data = error.response.data;
+        if (data.error) {
+          message = data.error;
+        } else {
+          const firstKey = Object.keys(data)[0];
+          const value = data[firstKey];
+          message = Array.isArray(value) ? value[0] : value;
+        }
+      }
+      showToast(message, "error");
+    } finally {
+      setUpdatingUserId(null);
+    }
+  };
 
   return (
     <div className="container mt-5">
@@ -79,8 +121,14 @@ function UserList(){
                         <button className="btn btn-primary btn-sm">View</button>
                         <button
                           className={`btn btn-sm ${user.is_active ? "btn-danger" : "btn-success"}`}
+                          onClick={() => toggleBlockState(user.id)}
+                          disabled={updatingUserId === user.id}
                         >
-                          {user.is_active ? "Block" : "Unblock"}
+                          {updatingUserId === user.id
+                            ? "Updating..."
+                            : user.is_active
+                            ? "Block"
+                            : "Unblock"}
                         </button>
                       </div>
                     </td>
