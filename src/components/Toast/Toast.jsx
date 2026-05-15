@@ -13,13 +13,13 @@ function Toast({ message, type = "success", onClose }) {
 
   }, [onClose]);
 
-  if (!message) return null;
+  const safeMessage = message ? String(message) : "Something went wrong. Please try again.";
 
   return (
 
     <div className={`${styles.toast} ${styles[type]}`}>
 
-      <span>{message}</span>
+      <span>{safeMessage}</span>
 
       <button onClick={onClose} className={styles.close}>
         ×

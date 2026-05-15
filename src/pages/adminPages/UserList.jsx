@@ -42,7 +42,7 @@ function UserList() {
   const toggleBlockState = async (id) => {
     setUpdatingUserId(id);
     try {
-      const response = await API.patch(`/user_admin/togglestatus/${id}/`);
+      const response = await API.patch(`/user_admin/togglestatus/${id}`);
       const { user_id, is_active, message } = response.data;
 
       setUsers((prevUsers) =>
