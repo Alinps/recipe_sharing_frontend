@@ -3,6 +3,7 @@ import API from "../../services/api"
 import { useDispatch } from "react-redux";
 import { adminLoginSuccess } from "../../store/adminAuthSlice";
 import { useToast } from "../../context/useToast";
+import { useNavigate } from "react-router-dom";
 
 
 function AdminLogin(){
@@ -10,6 +11,7 @@ function AdminLogin(){
     let [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const {showToast} = useToast();
+    const navigate = useNavigate();
 
     let handleSubmit = async (e) => {
 
@@ -21,17 +23,21 @@ function AdminLogin(){
             const response = await API.post("/admin_login/",data);
             dispatch(adminLoginSuccess(response.data));
             showToast("Admin Login Successfull","success");
+            navigate("/admin/dashboard");
 
     } catch(error){
 
         let message = "Failed to connect to API";
+
         if (error.response?.data){
 
             const data = error.response.data;
+            
         
             if(data.error){
 
                  message = data.error;
+                 
 
             } else {
 
@@ -41,7 +47,7 @@ function AdminLogin(){
 
              }
     }
-
+    console.log(message)
     showToast(message, "error");
 }
 }
