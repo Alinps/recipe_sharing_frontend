@@ -4,17 +4,31 @@ import { useToast } from "../../context/useToast";
 
 function UserList() {
   const [users, setUsers] = useState([]);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [nextPageUrl, setNextPageUrl] = useState(null);
+  const [previousPageUrl, setPreviousPageUrl] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [updatingUserId, setUpdatingUserId] = useState(null);
   const { showToast } = useToast();
 
   useEffect(() => {
     let isMounted = true;
 
-    const fetchUsers = async () => {
+    const fetchUsers = async (page = 1) => {
       try {
-        const response = await API.get("/user_admin/listuser");
+        const response = await API.get("/user_admin/listuser", {
+          params: { page },
+        });
         if (isMounted) {
-          setUsers(response.data.results || []);
+          const results = response.data.results || [];
+          setUsers(results);
+          setTotalUsers(response.data.count || 0);
+          setNextPageUrl(response.data.next || null);
+          setPreviousPageUrl(response.data.previous || null);
+          if (results.length > 0 && page === 1) {
+            setPageSize(results.length);
+          }
         }
       } catch (error) {
         let message = "Failed to fetch users";
@@ -32,12 +46,12 @@ function UserList() {
       }
     };
 
-    fetchUsers();
+    fetchUsers(currentPage);
 
     return () => {
       isMounted = false;
     };
-  }, [showToast]);
+  }, [showToast, currentPage]);
 
   const toggleBlockState = async (id) => {
     setUpdatingUserId(id);
@@ -70,12 +84,14 @@ function UserList() {
     }
   };
 
+  const totalPages = totalUsers > 0 ? Math.ceil(totalUsers / pageSize) : 1;
+
   return (
     <div className="container mt-5">
       <div className="card shadow-sm border-0">
         <div className="card-header bg-white d-flex justify-content-between align-items-center">
           <h5 className="mb-0 fw-semibold">Users List</h5>
-          <span className="badge bg-secondary">{users.length} Users</span>
+          <span className="badge bg-secondary">{totalUsers} Users</span>
         </div>
 
         <div className="table-responsive">
@@ -137,6 +153,28 @@ function UserList() {
               )}
             </tbody>
           </table>
+        </div>
+
+        <div className="card-footer bg-white d-flex justify-content-between align-items-center">
+          <small className="text-muted">
+            Page {currentPage} of {totalPages}
+          </small>
+          <div className="d-flex gap-2">
+            <button
+              className="btn btn-outline-secondary btn-sm"
+              disabled={!previousPageUrl}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            >
+              Previous
+            </button>
+            <button
+              className="btn btn-outline-secondary btn-sm"
+              disabled={!nextPageUrl}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>
