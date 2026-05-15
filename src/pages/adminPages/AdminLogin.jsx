@@ -20,7 +20,7 @@ function AdminLogin(){
         try {
 
             let data = {"email":email,"password":password};
-            const response = await API.post("admin_login/",data);
+            const response = await API.post("user_admin/admin_login/",data);
             dispatch(adminLoginSuccess(response.data));
             showToast("Admin Login Successfull","success");
             navigate("/admin/dashboard");
