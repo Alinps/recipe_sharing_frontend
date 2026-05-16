@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import {useState, useEffect} from "react";
 import API from "../../services/api";
 import { useToast } from "../../context/useToast";
+import AdminNavbar from "./AdminNavbar";
 
 function RecipeList(){
 
@@ -98,8 +99,9 @@ function RecipeList(){
     const totalPages = totalRecipes > 0 ? Math.ceil(totalRecipes / pageSize) : 1;
     
     return (
-
+        
         <div className="container mt-5">
+            <AdminNavbar />
             <div className="card">
                 <div className="card-header">
                     <h5 className="mb-0 fw-semibold">Recipe List</h5>
@@ -159,7 +161,7 @@ function RecipeList(){
                         Page {currentPage} of {totalPages}
                     </small>
 
-                    <div className="d-flex gap-2">
+                   <div className="d-flex justify-content-center gap-2">
                         <button
                             className="btn btn-outline-secondary"
                             disabled={!previousPageUrl}
