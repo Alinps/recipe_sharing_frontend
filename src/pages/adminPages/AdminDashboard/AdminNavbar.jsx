@@ -3,16 +3,42 @@ import { useDispatch } from "react-redux";
 import { adminLogout } from "../../../store/adminAuthSlice";
 import { useToast } from "../../../context/useToast";
 import styles from "./AdminNavbar.module.css";
+import API from "../../../services/api";
 
 function AdminNavbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { showToast } = useToast();
+  const handleLogout = async () => {
 
-  const handleLogout = () => {
+    try{
+
+    const response = await API.post("/user_admin/logout/")
+    const payload = response.data?.data ?? response.data;
+    const successMessage = payload?.message || "Logged out successfully";
     dispatch(adminLogout());
-    showToast("Logged out successfully", "success");
+    showToast(successMessage, "success");
     navigate("/admin_login");
+
+    } catch (error) {
+       let message = "Something went wrong";
+
+        if (error.response?.data) {
+          const data = error.response.data;
+
+          if (data.error) {
+            message = data.error;
+          } else {
+            const firstKey = Object.keys(data)[0];
+            const value = data[firstKey];
+            message = Array.isArray(value) ? value[0] : value;
+          }
+        }
+        dispatch(adminLogout());
+        showToast(message, "error");
+        navigate("/admin_login");
+    }
+   
   };
 
   return (
