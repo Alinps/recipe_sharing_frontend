@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../../services/api";
 import { useToast } from "../../../context/useToast";
-import styles from "./AdminTable.module.css";
+import styles from "./RecipeView.module.css";
 
 function RecipeView() {
   const [recipe, setRecipe] = useState(null);
@@ -51,8 +51,6 @@ function RecipeView() {
     };
   }, [id, showToast]);
 
-  
-
   if (loading) {
     return (
       <div className={styles.page}>
@@ -60,7 +58,7 @@ function RecipeView() {
           <div className={styles.header}>
             <h5 className={styles.title}>Recipe Details</h5>
           </div>
-          <div className={styles.searchWrap}>Loading recipe...</div>
+          <div className={styles.state}>Loading recipe...</div>
         </div>
       </div>
     );
@@ -73,7 +71,7 @@ function RecipeView() {
           <div className={styles.header}>
             <h5 className={styles.title}>Recipe Details</h5>
           </div>
-          <div className={styles.searchWrap}>Recipe not found.</div>
+          <div className={styles.state}>Recipe not found.</div>
         </div>
       </div>
     );
@@ -87,22 +85,40 @@ function RecipeView() {
           <span className={styles.badge}>ID: {recipe.id}</span>
         </div>
 
-        <div className={styles.searchWrap}>
-          <p><strong>Description:</strong> {recipe.description || "Not available"}</p>
-          <p><strong>Ingredients:</strong> {recipe.ingredients || "Not available"}</p>
-          <p><strong>Instructions:</strong> {recipe.steps || "Not available"}</p>
-          <p><strong>Cooking Time:</strong> {recipe.cooking_time || "Not available"}</p>
-          <p><strong>Difficulty:</strong> {recipe.difficulty_level || "Not available"}</p>
-          <p><strong>Created At:</strong> {recipe.created_at || "Not available"}</p>
-        </div>
+        <div className={styles.content}>
+          <div>
+            <div className={styles.media}>
+              <img
+                src={recipe.image || "https://via.placeholder.com/600x400?text=No+Image"}
+                alt={recipe.title || "Recipe"}
+                className={styles.image}
+              />
+            </div>
 
-        <div className={styles.searchWrap}>
-          <p><strong>Image:</strong></p>
-          <img
-            src={recipe.image || "https://via.placeholder.com/400x240?text=No+Image"}
-            alt={recipe.title || "Recipe"}
-            style={{ width: "100%", maxWidth: "420px", borderRadius: "10px", border: "1px solid #dbe2ef" }}
-          />
+            <div className={styles.meta}>
+              <span className={styles.chip}>Time: {recipe.cooking_time || "N/A"}</span>
+              <span className={styles.chip}>Difficulty: {recipe.difficulty_level || "N/A"}</span>
+              <span className={styles.chip}>Created: {recipe.created_at || "N/A"}</span>
+              <span className={styles.chip}>User ID: {recipe.user ?? "N/A"}</span>
+            </div>
+          </div>
+
+          <div>
+            <section className={styles.section}>
+              <h6 className={styles.sectionTitle}>Description</h6>
+              <p className={styles.text}>{recipe.description || "Not available"}</p>
+            </section>
+
+            <section className={styles.section}>
+              <h6 className={styles.sectionTitle}>Ingredients</h6>
+              <p className={styles.text}>{recipe.ingredients || "Not available"}</p>
+            </section>
+
+            <section className={styles.section}>
+              <h6 className={styles.sectionTitle}>Instructions</h6>
+              <p className={styles.text}>{recipe.steps || "Not available"}</p>
+            </section>
+          </div>
         </div>
       </div>
     </div>
