@@ -7,7 +7,7 @@ import RecipeDetails from "./pages/RecipeDetails/RecipeDetails";
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
 import Profile from "./pages/Profile/Profile";
 import EditRecipe from "./pages/EditRecipe/EditRecipe";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, matchPath } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute"; 
 import PublicRoute from "./components/PublicRoute";
 import ProfileEdit from "./pages/ProfileEdit/ProfileEdit";
@@ -20,14 +20,17 @@ import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import AdminPublicRoute from "./components/AdminPublicRoute";
 import AdminLogin from "./pages/adminPages/AdminLogin";
 import UserList from "./pages/adminPages/UserList";
+import RecipeList from "./pages/adminPages/RecipeList";
 
 function App() {
   const location = useLocation();
 
   const noLayoutPaths = ["/", "/landing"];
-  const adminPaths = ["/admin_login", "/admin/dashboard"];
+  const adminPaths = ["/admin_login", "/admin/dashboard","/admin/dashboard/recipelist/:id"];
   const isNoLayout = noLayoutPaths.includes(location.pathname);
-  const isAdminLayout = adminPaths.includes(location.pathname);
+  const isAdminLayout = adminRoutePatterns.some((pattern) =>
+  matchPath({ path: pattern, end: true }, location.pathname)
+);
 
   return (
     <>
@@ -55,7 +58,20 @@ function App() {
               </AdminProtectedRoute>
             }
           />
+
+
+           <Route
+            path="/admin/dashboard/recipelist/:id"
+            element={
+              <AdminProtectedRoute>
+                <RecipeList />
+              </AdminProtectedRoute>
+            }
+          />
+          
         </Routes>
+
+        
       ) : (
         /* 🔹 App Routes (WITH main wrapper) */
         <main className="page">

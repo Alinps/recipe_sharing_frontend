@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import API from "../../services/api";
 import { useToast } from "../../context/useToast";
+import { Link } from "react-router-dom";
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -16,6 +17,8 @@ function UserList() {
 
   useEffect(() => {
     let isMounted = true;
+
+    if (debounceSearch.trim() === "") return;
 
     const fetchUsers = async (page = 1) => {
       try {
@@ -154,7 +157,7 @@ function UserList() {
                     </td>
                     <td className="text-center">
                       <div className="d-flex justify-content-center gap-2">
-                        <button className="btn btn-primary btn-sm">View</button>
+                        <Link className="btn btn-primary btn-sm" to={`/admin/dashboard/recipelist/${user.id}`} >View</Link>
                         <button
                           className={`btn btn-sm ${user.is_active ? "btn-danger" : "btn-success"}`}
                           onClick={() => toggleBlockState(user.id)}
