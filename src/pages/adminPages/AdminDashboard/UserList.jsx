@@ -6,6 +6,7 @@ import styles from "./AdminTable.module.css";
 
 function UserList() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [debounceSearch, setDebounceSearch] = useState("");
   const [totalUsers, setTotalUsers] = useState(0);
@@ -21,6 +22,7 @@ function UserList() {
     let isMounted = true;
 
     const fetchUsers = async (page = 1) => {
+      setLoading(true);
       try {
         const response = await API.get("/user_admin/listuser", {
           params: {
@@ -51,6 +53,10 @@ function UserList() {
           }
         }
         showToast(message, "error");
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
@@ -154,7 +160,13 @@ function UserList() {
               </tr>
             </thead>
             <tbody>
-              {users.length === 0 ? (
+              {loading ? (
+                <tr>
+                  <td colSpan="5" className={styles.empty}>
+                    Loading users...
+                  </td>
+                </tr>
+              ) : users.length === 0 ? (
                 <tr>
                   <td colSpan="5" className={styles.empty}>
                     No users found
