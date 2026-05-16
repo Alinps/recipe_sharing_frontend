@@ -28,7 +28,7 @@ function App() {
   const noLayoutPaths = ["/", "/landing"];
   const adminPaths = ["/admin_login", "/admin/dashboard","/admin/dashboard/recipelist/:id"];
   const isNoLayout = noLayoutPaths.includes(location.pathname);
-  const isAdminLayout = adminRoutePatterns.some((pattern) =>
+  const isAdminLayout = adminPaths.some((pattern) =>
   matchPath({ path: pattern, end: true }, location.pathname)
 );
 
