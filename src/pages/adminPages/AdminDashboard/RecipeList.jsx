@@ -13,6 +13,7 @@ function RecipeList() {
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
   const [debounceSearch, setDebounceSearch] = useState("");
+  const [deletingRecipeId, setDeletingRecipeId] = useState(null);
   const { id } = useParams();
   const { showToast } = useToast();
   const navigate = useNavigate();
@@ -82,6 +83,52 @@ function RecipeList() {
     navigate(`/admin/dashboard/recipeview/${recipeId}`)
   }
 
+  const formatDate = (value) => {
+  if (!value) return "N/A";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "N/A";
+
+  return date.toLocaleString("en-IN", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+const handleDelete = async (recipeId) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this recipe?");
+  if (!confirmDelete) return;
+
+  setDeletingRecipeId(recipeId);
+
+  try {
+    await API.delete(`/user_admin/deleterecipe/${recipeId}`);
+
+    setRecipes((prevRecipes) => prevRecipes.filter((item) => item.id !== recipeId));
+    setTotalRecipes((prevTotal) => Math.max(prevTotal - 1, 0));
+    showToast("Recipe deleted successfully", "success");
+  } catch (error) {
+    let message = "Failed to delete recipe";
+
+    if (error.response?.data) {
+      const data = error.response.data;
+
+      if (data.error) {
+        message = data.error;
+      } else {
+        const firstKey = Object.keys(data)[0];
+        const value = data[firstKey];
+        message = Array.isArray(value) ? value[0] : value;
+      }
+    }
+
+    showToast(message, "error");
+  } finally {
+    setDeletingRecipeId(null);
+  }
+}
   return (
     <div className={styles.page}>
       <div className={styles.card}>
@@ -132,11 +179,17 @@ function RecipeList() {
                       />
                     </td>
                     <td>{recipe.title || "No title"}</td>
-                    <td>{recipe.created_at || "Not available"}</td>
+                    <td>{formatDate(recipe.created_at) || "Not available"}</td>
                     <td>
                       <div className={styles.actions}>
                         <button className={`${styles.btn} ${styles.btnInfo}`} onClick={()=> handleNavigate(recipe.id)}>View</button>
-                        <button className={`${styles.btn} ${styles.btnDanger}`}>Delete</button>
+                        <button
+                          className={`${styles.btn} ${styles.btnDanger}`}
+                          onClick={() => handleDelete(recipe.id)}
+                          disabled={deletingRecipeId === recipe.id}
+                        >
+                          {deletingRecipeId === recipe.id ? "Deleting..." : "Delete"}
+                        </button>
                       </div>
                     </td>
                   </tr>

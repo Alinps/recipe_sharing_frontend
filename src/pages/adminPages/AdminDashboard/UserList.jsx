@@ -108,6 +108,21 @@ function UserList() {
     navigate(`/admin/dashboard/recipelist/${userId}`);
   };
 
+    const formatDate = (value) => {
+  if (!value) return "N/A";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "N/A";
+
+  return date.toLocaleString("en-IN", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+
   return (
     <div className={styles.page}>
       <div className={styles.card}>
@@ -133,6 +148,7 @@ function UserList() {
                 <th scope="col">Profile</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Joined At</th>
                 <th scope="col">Status</th>
                 <th scope="col">Actions</th>
               </tr>
@@ -156,6 +172,7 @@ function UserList() {
                     </td>
                     <td>{user.name || "No Name"}</td>
                     <td>{user.email}</td>
+                    <td>{formatDate(user.created_at)}</td>
                     <td>
                       <span
                         className={`${styles.status} ${

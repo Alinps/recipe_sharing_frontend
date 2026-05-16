@@ -51,6 +51,20 @@ function RecipeView() {
     };
   }, [id, showToast]);
 
+  const formatDate = (value) => {
+  if (!value) return "N/A";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "N/A";
+
+  return date.toLocaleString("en-IN", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
   if (loading) {
     return (
       <div className={styles.page}>
@@ -98,7 +112,7 @@ function RecipeView() {
             <div className={styles.meta}>
               <span className={styles.chip}>Time: {recipe.cooking_time || "N/A"}</span>
               <span className={styles.chip}>Difficulty: {recipe.difficulty_level || "N/A"}</span>
-              <span className={styles.chip}>Created: {recipe.created_at || "N/A"}</span>
+              <span className={styles.chip}>Created: {formatDate(recipe.created_at) || "N/A"}</span>
               <span className={styles.chip}>User ID: {recipe.user ?? "N/A"}</span>
             </div>
           </div>
