@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import {useState, useEffect} from "react";
 import API from "../../services/api";
 import { useToast } from "../../context/useToast";
-import AdminNavbar from "./AdminNavbar";
 
 function RecipeList(){
 
@@ -101,7 +100,7 @@ function RecipeList(){
     return (
         
         <div className="container mt-5">
-            <AdminNavbar />
+          
             <div className="card">
                 <div className="card-header">
                     <h5 className="mb-0 fw-semibold">Recipe List</h5>
