@@ -2,6 +2,7 @@ import { useState } from "react";
 import API from "../../../services/api";
 import { useDispatch } from "react-redux";
 import { adminLoginSuccess } from "../../../store/adminAuthSlice";
+import { adminLogout } from "../../../store/adminAuthSlice";
 import { useToast } from "../../../context/useToast";
 import { useNavigate } from "react-router-dom";
 import styles from "./AdminLogin.module.css";
@@ -36,8 +37,9 @@ function AdminLogin() {
           message = Array.isArray(value) ? value[0] : value;
         }
       }
-
+      dispatch(adminLogout());
       showToast(message, "error");
+      navigate("/admin_login", { replace: true });
     }
   };
 
