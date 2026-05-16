@@ -22,7 +22,7 @@ import AdminLogin from "./pages/adminPages/AdminLogin/AdminLogin";
 import UserList from "./pages/adminPages/AdminDashboard/UserList";
 import RecipeList from "./pages/adminPages/AdminDashboard/RecipeList";
 import AdminNavbar from "./pages/adminPages/AdminDashboard/AdminNavbar";
-import RecipeView from "./pages/adminPages/AdminDashboard/RecipeView.";
+import RecipeView from "./pages/adminPages/AdminDashboard/RecipeView";
 
 function App() {
   const location = useLocation();
@@ -32,6 +32,7 @@ function App() {
     "/admin_login",
     "/admin/dashboard",
     "/admin/dashboard/recipelist/:id",
+    "/admin/dashboard/recipeview/:id",
   ];
 
   const isNoLayout = noLayoutPaths.includes(location.pathname);

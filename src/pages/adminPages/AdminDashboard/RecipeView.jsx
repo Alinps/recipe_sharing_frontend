@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import API from "../../../services/api";
 import { useToast } from "../../../context/useToast";
 import styles from "./AdminTable.module.css";
@@ -8,7 +8,6 @@ function RecipeView() {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const navigate = useNavigate();
   const { showToast } = useToast();
 
   useEffect(() => {
