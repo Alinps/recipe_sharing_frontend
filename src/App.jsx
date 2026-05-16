@@ -22,6 +22,7 @@ import AdminLogin from "./pages/adminPages/AdminLogin/AdminLogin";
 import UserList from "./pages/adminPages/AdminDashboard/UserList";
 import RecipeList from "./pages/adminPages/AdminDashboard/RecipeList";
 import AdminNavbar from "./pages/adminPages/AdminDashboard/AdminNavbar";
+import RecipeView from "./pages/adminPages/AdminDashboard/RecipeView.";
 
 function App() {
   const location = useLocation();
@@ -86,6 +87,19 @@ function App() {
               </AdminProtectedRoute>
             }
           />
+
+
+          <Route
+            path="/admin/dashboard/recipeview/:id"
+            element={
+              <AdminProtectedRoute>
+                <AdminNavbar />
+                <RecipeView />
+              </AdminProtectedRoute>
+            }
+          />
+
+
         </Routes>
       ) : (
         <main className="page">

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import API from "../../../services/api";
 import { useToast } from "../../../context/useToast";
@@ -15,6 +15,7 @@ function RecipeList() {
   const [debounceSearch, setDebounceSearch] = useState("");
   const { id } = useParams();
   const { showToast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let isMounted = true;
@@ -77,6 +78,10 @@ function RecipeList() {
 
   const totalPages = totalRecipes > 0 ? Math.ceil(totalRecipes / pageSize) : 1;
 
+  const handleNavigate = (recipeId) => {
+    navigate(`/admin/dashboard/recipeview/${recipeId}`)
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.card}>
@@ -130,7 +135,7 @@ function RecipeList() {
                     <td>{recipe.created_at || "Not available"}</td>
                     <td>
                       <div className={styles.actions}>
-                        <button className={`${styles.btn} ${styles.btnInfo}`}>View</button>
+                        <button className={`${styles.btn} ${styles.btnInfo}`} onClick={()=> handleNavigate(recipe.id)}>View</button>
                         <button className={`${styles.btn} ${styles.btnDanger}`}>Delete</button>
                       </div>
                     </td>
