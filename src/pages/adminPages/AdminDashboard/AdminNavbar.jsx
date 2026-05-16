@@ -13,7 +13,7 @@ function AdminNavbar() {
 
     try{
 
-    const response = await API.post("/user_admin/logout/")
+    const response = await API.post("/user_admin/logout")
     const payload = response.data?.data ?? response.data;
     const successMessage = payload?.message || "Logged out successfully";
     dispatch(adminLogout());
