@@ -7,40 +7,57 @@ import RecipeDetails from "./pages/RecipeDetails/RecipeDetails";
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
 import Profile from "./pages/Profile/Profile";
 import EditRecipe from "./pages/EditRecipe/EditRecipe";
-import { Route, Routes, useLocation, matchPath } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute"; 
+import { Route, Routes, useLocation, matchPath, Navigate  } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import ProfileEdit from "./pages/ProfileEdit/ProfileEdit";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import Landing from "./pages/Landing/Landing";
 import ServerWakeup from "./components/ServerWakeup/ServerWakeup";
-
+import { useSelector } from "react-redux";
 
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import AdminPublicRoute from "./components/AdminPublicRoute";
 import AdminLogin from "./pages/adminPages/AdminLogin/AdminLogin";
 import UserList from "./pages/adminPages/AdminDashboard/UserList";
 import RecipeList from "./pages/adminPages/AdminDashboard/RecipeList";
+import AdminNavbar from "./pages/adminPages/AdminDashboard/AdminNavbar";
 
 function App() {
   const location = useLocation();
 
   const noLayoutPaths = ["/", "/landing"];
-  const adminPaths = ["/admin_login", "/admin/dashboard","/admin/dashboard/recipelist/:id"];
+  const adminPaths = [
+    "/admin_login",
+    "/admin/dashboard",
+    "/admin/dashboard/recipelist/:id",
+  ];
+
   const isNoLayout = noLayoutPaths.includes(location.pathname);
   const isAdminLayout = adminPaths.some((pattern) =>
-  matchPath({ path: pattern, end: true }, location.pathname)
-);
+    matchPath({ path: pattern, end: true }, location.pathname)
+  );
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAdminAuthenticated = useSelector((state) => state.adminAuth.isAdminAuthenticated);
 
   return (
     <>
-      {/* Navbar */}
       {!isNoLayout && !isAdminLayout && <Navbar />}
 
-      {/* 🔹 Fullscreen routes without page wrapper */}
       {isNoLayout || isAdminLayout ? (
         <Routes>
-          <Route path="/" element={<ServerWakeup />} />
+          <Route
+              path="/"
+              element={
+                isAdminAuthenticated ? (
+                  <Navigate to="/admin/dashboard" replace />
+                ) : isAuthenticated ? (
+                  <Navigate to="/home" replace />
+                ) : (
+                  <ServerWakeup />
+                )
+              }
+            />
           <Route path="/landing" element={<Landing />} />
           <Route
             path="/admin_login"
@@ -54,59 +71,54 @@ function App() {
             path="/admin/dashboard"
             element={
               <AdminProtectedRoute>
+                <AdminNavbar />
                 <UserList />
               </AdminProtectedRoute>
             }
           />
 
-
-           <Route
+          <Route
             path="/admin/dashboard/recipelist/:id"
             element={
               <AdminProtectedRoute>
+                <AdminNavbar />
                 <RecipeList />
               </AdminProtectedRoute>
             }
           />
-          
         </Routes>
-
-        
       ) : (
-        /* 🔹 App Routes (WITH main wrapper) */
         <main className="page">
           <Routes>
-            {/* Auth */}
-            <Route 
-              path="/login" 
+            <Route
+              path="/login"
               element={
                 <PublicRoute>
                   <Login />
                 </PublicRoute>
-              } 
+              }
             />
 
-            <Route 
-              path="/register" 
+            <Route
+              path="/register"
               element={
                 <PublicRoute>
                   <Register />
                 </PublicRoute>
-              } 
+              }
             />
 
-            {/* Protected */}
-            <Route 
-              path="/home" 
+            <Route
+              path="/home"
               element={
                 <ProtectedRoute>
                   <Home />
                 </ProtectedRoute>
-              } 
+              }
             />
 
-            <Route 
-              path="/recipes" 
+            <Route
+              path="/recipes"
               element={
                 <ProtectedRoute>
                   <Recipes />
@@ -114,8 +126,8 @@ function App() {
               }
             />
 
-            <Route 
-              path="/recipes/:id" 
+            <Route
+              path="/recipes/:id"
               element={
                 <ProtectedRoute>
                   <RecipeDetails />
@@ -123,49 +135,49 @@ function App() {
               }
             />
 
-            <Route 
-              path="/add-recipe" 
+            <Route
+              path="/add-recipe"
               element={
                 <ProtectedRoute>
                   <CreateRecipe />
                 </ProtectedRoute>
-              } 
+              }
             />
 
-            <Route 
-              path="/profile/:id" 
+            <Route
+              path="/profile/:id"
               element={
                 <ProtectedRoute>
                   <Profile />
                 </ProtectedRoute>
-              } 
+              }
             />
 
-            <Route 
-              path="/edit/recipe/:id" 
+            <Route
+              path="/edit/recipe/:id"
               element={
                 <ProtectedRoute>
                   <EditRecipe />
                 </ProtectedRoute>
-              } 
+              }
             />
 
-            <Route 
-              path="/edit/profile" 
+            <Route
+              path="/edit/profile"
               element={
                 <ProtectedRoute>
                   <ProfileEdit />
                 </ProtectedRoute>
-              } 
+              }
             />
 
             <Route
-              path="/changepassword" 
+              path="/changepassword"
               element={
                 <ProtectedRoute>
                   <ChangePassword />
                 </ProtectedRoute>
-              } 
+              }
             />
           </Routes>
         </main>
@@ -173,4 +185,5 @@ function App() {
     </>
   );
 }
+
 export default App;
