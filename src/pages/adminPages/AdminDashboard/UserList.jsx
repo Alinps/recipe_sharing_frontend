@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import API from "../../services/api";
-import { useToast } from "../../context/useToast";
-import { Link } from "react-router-dom";
+import API from "../../../services/api";
+import { useToast } from "../../../context/useToast";
 import { useNavigate } from "react-router-dom";
+import styles from "./AdminTable.module.css";
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -20,15 +20,13 @@ function UserList() {
   useEffect(() => {
     let isMounted = true;
 
-  
-
     const fetchUsers = async (page = 1) => {
       try {
         const response = await API.get("/user_admin/listuser", {
           params: {
-             page,
-             search:debounceSearch
-            },
+            page,
+            search: debounceSearch,
+          },
         });
         if (isMounted) {
           const results = response.data.results || [];
@@ -61,7 +59,7 @@ function UserList() {
     return () => {
       isMounted = false;
     };
-  }, [showToast, currentPage,debounceSearch]);
+  }, [showToast, currentPage, debounceSearch]);
 
   const toggleBlockState = async (id) => {
     setUpdatingUserId(id);
@@ -96,47 +94,53 @@ function UserList() {
 
   const totalPages = totalUsers > 0 ? Math.ceil(totalUsers / pageSize) : 1;
 
-  useEffect(()=> {
- 
-    const timer = setTimeout(()=> {
+  useEffect(() => {
+    const timer = setTimeout(() => {
       setDebounceSearch(search);
     }, 500);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [search])
+  }, [search]);
 
-const handleNavigate  = (userid) => {
-    navigate(`/admin/dashboard/recipelist/${userid}`)
-  }
+  const handleNavigate = (userId) => {
+    navigate(`/admin/dashboard/recipelist/${userId}`);
+  };
+
   return (
-    <div className="container mt-5">
-      <div className="card shadow-sm border-0">
-        <div className="card-header bg-white d-flex justify-content-between align-items-center">
-          <h5 className="mb-0 fw-semibold">Users List</h5>
-          <span className="badge bg-secondary">{totalUsers} Users</span>
+    <div className={styles.page}>
+      <div className={styles.card}>
+        <div className={styles.header}>
+          <h5 className={styles.title}>Users List</h5>
+          <span className={styles.badge}>{totalUsers} Users</span>
         </div>
 
-        <div className="form-control d-flex justify-content-center">
-          <input type="text" value ={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search by email or name" />
+        <div className={styles.searchWrap}>
+          <input
+            type="text"
+            className={styles.searchInput}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by email or name"
+          />
         </div>
 
-        <div className="table-responsive">
-          <table className="table table-striped table-hover align-middle mb-0">
-            <thead className="table-dark">
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead>
               <tr>
                 <th scope="col">Profile</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Status</th>
-                <th scope="col" className="text-center">Actions</th>
+                <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
               {users.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="text-center text-muted py-4">
+                  <td colSpan="5" className={styles.empty}>
                     No users found
                   </td>
                 </tr>
@@ -147,24 +151,32 @@ const handleNavigate  = (userid) => {
                       <img
                         src={user.image ? `${user.image}` : "https://via.placeholder.com/50"}
                         alt="profile"
-                        className="rounded-circle border"
-                        width="50"
-                        height="50"
-                        style={{ objectFit: "cover" }}
+                        className={styles.avatar}
                       />
                     </td>
-                    <td className="fw-medium">{user.name || "No Name"}</td>
+                    <td>{user.name || "No Name"}</td>
                     <td>{user.email}</td>
                     <td>
-                      <span className={`badge ${user.is_active ? "bg-success" : "bg-danger"}`}>
+                      <span
+                        className={`${styles.status} ${
+                          user.is_active ? styles.active : styles.blocked
+                        }`}
+                      >
                         {user.is_active ? "Active" : "Blocked"}
                       </span>
                     </td>
-                    <td className="text-center">
-                      <div className="d-flex justify-content-center gap-2">
-                        <button className="btn btn-primary btn-sm" onClick={()=>handleNavigate(user.id)} >View</button>
+                    <td>
+                      <div className={styles.actions}>
                         <button
-                          className={`btn btn-sm ${user.is_active ? "btn-danger" : "btn-success"}`}
+                          className={`${styles.btn} ${styles.btnPrimary}`}
+                          onClick={() => handleNavigate(user.id)}
+                        >
+                          View
+                        </button>
+                        <button
+                          className={`${styles.btn} ${
+                            user.is_active ? styles.btnDanger : styles.btnSuccess
+                          }`}
                           onClick={() => toggleBlockState(user.id)}
                           disabled={updatingUserId === user.id}
                         >
@@ -183,20 +195,20 @@ const handleNavigate  = (userid) => {
           </table>
         </div>
 
-        <div className="card-footer bg-white d-flex justify-content-between align-items-center">
-          <small className="text-muted">
+        <div className={styles.footer}>
+          <small className={styles.pageText}>
             Page {currentPage} of {totalPages}
           </small>
-          <div className="d-flex gap-2">
+          <div className={styles.pagination}>
             <button
-              className="btn btn-outline-secondary btn-sm"
+              className={`${styles.btn} ${styles.btnOutline}`}
               disabled={!previousPageUrl}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             >
               Previous
             </button>
             <button
-              className="btn btn-outline-secondary btn-sm"
+              className={`${styles.btn} ${styles.btnOutline}`}
               disabled={!nextPageUrl}
               onClick={() => setCurrentPage((prev) => prev + 1)}
             >

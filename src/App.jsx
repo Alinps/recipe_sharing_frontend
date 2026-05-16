@@ -18,9 +18,9 @@ import ServerWakeup from "./components/ServerWakeup/ServerWakeup";
 
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import AdminPublicRoute from "./components/AdminPublicRoute";
-import AdminLogin from "./pages/adminPages/AdminLogin";
-import UserList from "./pages/adminPages/UserList";
-import RecipeList from "./pages/adminPages/RecipeList";
+import AdminLogin from "./pages/adminPages/AdminLogin/AdminLogin";
+import UserList from "./pages/adminPages/AdminDashboard/UserList";
+import RecipeList from "./pages/adminPages/AdminDashboard/RecipeList";
 
 function App() {
   const location = useLocation();
