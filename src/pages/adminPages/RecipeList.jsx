@@ -26,7 +26,10 @@ function RecipeList(){
         try {
 
             const response = await API.get(`/user_admin/listrecipe/${id}`,{
-                params: page
+                params: {
+                    page,
+                    search:debounceSearch
+                }
             });
 
             if (isMounted) {
