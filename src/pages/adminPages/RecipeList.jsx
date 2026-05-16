@@ -46,6 +46,7 @@ function RecipeList(){
         } catch (error) {
 
             let message = "Faild to fetch Recipes"
+            console.log(error);
             
             if (error.response?.data) {
 
@@ -95,7 +96,7 @@ function RecipeList(){
     
     return (
 
-        <div className="container mt-5 bg-light">
+        <div className="container mt-5">
             <div className="card">
                 <div className="card-header">
                     <h5 className="mb-0 fw-semibold">Recipe List</h5>
