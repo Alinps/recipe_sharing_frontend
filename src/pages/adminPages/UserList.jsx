@@ -4,6 +4,8 @@ import { useToast } from "../../context/useToast";
 
 function UserList() {
   const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState("");
+  const [debounceSearch, setDebounceSearch] = useState("");
   const [totalUsers, setTotalUsers] = useState(0);
   const [nextPageUrl, setNextPageUrl] = useState(null);
   const [previousPageUrl, setPreviousPageUrl] = useState(null);
@@ -18,7 +20,10 @@ function UserList() {
     const fetchUsers = async (page = 1) => {
       try {
         const response = await API.get("/user_admin/listuser", {
-          params: { page },
+          params: {
+             page,
+             search:debounceSearch
+            },
         });
         if (isMounted) {
           const results = response.data.results || [];
@@ -51,7 +56,7 @@ function UserList() {
     return () => {
       isMounted = false;
     };
-  }, [showToast, currentPage]);
+  }, [showToast, currentPage,debounceSearch]);
 
   const toggleBlockState = async (id) => {
     setUpdatingUserId(id);
@@ -86,12 +91,27 @@ function UserList() {
 
   const totalPages = totalUsers > 0 ? Math.ceil(totalUsers / pageSize) : 1;
 
+  useEffect(()=> {
+ 
+    const timer = setTimeout(()=> {
+      setDebounceSearch(search);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [search])
+
   return (
     <div className="container mt-5">
       <div className="card shadow-sm border-0">
         <div className="card-header bg-white d-flex justify-content-between align-items-center">
           <h5 className="mb-0 fw-semibold">Users List</h5>
           <span className="badge bg-secondary">{totalUsers} Users</span>
+        </div>
+
+        <div className="form-control d-flex justify-content-center">
+          <input type="text" value ={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search by email or name" />
         </div>
 
         <div className="table-responsive">
