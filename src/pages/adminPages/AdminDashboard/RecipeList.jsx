@@ -90,7 +90,10 @@ function RecipeList() {
             type="text"
             className={styles.searchInput}
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
             placeholder="Search by title or ingredients"
           />
         </div>
